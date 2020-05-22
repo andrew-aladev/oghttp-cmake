@@ -1,0 +1,11 @@
+Please read "constants_processor" doc first.
+
+Token processing should be available for single constant.
+The most basic example is "GET" token for HTTP v0.9.
+
+"constant" = "GET"
+
+We can assign "0" state for empty string (initial state), "1" for "G", "2" for "E", "3" for "T".
+"max_state" will be "constant.length".
+
+Fast state type will be unified with other processors.

@@ -1,0 +1,384 @@
+HTTP requires token processing.
+Tokens can consist of the list of predefined strings (constants).
+The most basic example is "method" token.
+
+"constants":
+[
+  0: "GET,
+  1: "POST",
+  2: "PUT"
+]
+
+We are taking next byte from stream and validating whether new token is a valid "method".
+It means that we need to validate prefix from the list of predefined methods.
+
+There is an easy way to do it: assign an unique number for each possible prefix.
+This number can be named as "state".
+
+Empty string - 0.
+"G" - 1, "GE" - 2, "GET" - 3.
+"P" - 4, "PO" - 5, "POS" - 6, "POST" - 7.
+"P" - 4, "PU" - 8, "PUT" - 9.
+
+We can see the following dependency:
+Empty => "G" => "GE" => "GET".
+Empty (0) => "G" (1) => "GE" (2) => "GET" (3).
+
+We can keep dependency and last byte only.
+Table can be updated into the following form:
+Empty (0) => "G" (1) => "E" (2) => "T" (3).
+Empty (0) => "P" (4) => "O" (5) => "S" (6) => "T" (7).
+Empty (0) => "P" (4) => "U" (8) => "T" (9).
+
+This mapping can be implemented as an array of byte arrays:
+[
+  0 (empty string): [
+    ["G"]: 1,
+    ["P"]: 4
+  ],
+  1 ("G"): [
+    ["E"]: 2
+  ],
+  2 ("GE"): [
+    ["T"]: 3
+  ],
+  3 ("GET"): [],
+  4 ("P"): [
+    ["O"]: 5,
+    ["U"]: 8
+  ],
+  5 ("PO"): [
+    ["S"]: 6
+  ],
+  6 ("POS"): [
+    ["T"]: 7
+  ],
+  7 ("POST"): [],
+  8 ("PU"): [
+    ["T"]: 9
+  ],
+  9 ("PUT"): []
+]
+
+It can be named as "next_state_by_last_symbols".
+
+-----
+
+What is the alphabet for constants?
+Each token has its own alphabet, so we should maintain it for each set of constants.
+
+For example alphabet for methods will be "A-Z" plus "-" byte:
+[
+  0: "A"
+  ...
+  25: "Z",
+  26: "-"
+]
+
+We are taking next byte from stream and want to work with its index.
+Index of byte in alphabet can be named as "symbol".
+
+We need to maintain mapping between symbol and byte.
+This mapping can be named as "symbol_by_bytes":
+[
+  ["A"]: 0,
+  ...
+  ["Z"]: 25,
+  ["-"]: 26
+]
+
+It is possible that some bytes in this mapping wont be defined.
+We can use "255" as undefined symbol value if alphabet is not full.
+
+So "symbol_by_bytes" can be updated into the following form:
+[
+  [0 ... 255]: 255,
+  ["A"]: 0,
+  ...
+  ["Z"]: 25,
+  ["-"]: 26
+]
+
+If alphabet will be full - assignments will replace all default values ("[0 ... 255]: 255").
+
+Length of "symbol_by_bytes" will be fixed - 255 elements.
+Memory consumption will be low and it will be easy to handle bytes from stream.
+
+-----
+
+Lets update "next_state_by_last_symbols" mapping.
+We can have some "sym" function that maps byte to symbol using "symbol_by_bytes":
+[
+  0 (empty string): [
+    [sym("G")]: 1,
+    [sym("P")]: 4
+  ],
+  1 ("G"): [
+    [sym("E")]: 2
+  ],
+  2 ("GE"): [
+    [sym("T")]: 3
+  ],
+  3 ("GET"): [],
+  4 ("P"): [
+    [sym("O")]: 5,
+    [sym("U")]: 8
+  ],
+  5 ("PO"): [
+    [sym("S")]: 6
+  ],
+  6 ("POS"): [
+    [sym("T")]: 7
+  ],
+  7 ("POST"): [],
+  8 ("PU"): [
+    [sym("T")]: 9
+  ],
+  9 ("PUT"): []
+]
+
+3, 7, 9 states are related to constants:
+[
+  3: "GET",
+  7: "POST",
+  9: "PUT"
+]
+
+It is possible that there will be some constants equals to prefix of other constants.
+For example: "GET", "GETT".
+It is not possible today for methods, but possible for other constants.
+So we have to keep constants inside "next_state_by_last_symbols".
+
+Assignment of an unique state for prefix can be done in any way, order is not important.
+So we can reassign states in the following way:
+1. assign first states for constants.
+2. assign "constants.length" state for empty string.
+3. assign next states for not empty prefixes.
+
+Lets update "next_state_by_last_symbols":
+[
+  0 ("GET"): [],
+  1 ("POST"): [],
+  2 ("PUT"): [],
+  3 (empty string): [
+    [sym("G")]: 4,
+    [sym("P")]: 6
+  ],
+  4 ("G"): [
+    [sym("E")]: 5
+  ],
+  5 ("GE"): [
+    [sym("T")]: 0
+  ],
+  6 ("P"): [
+    [sym("O")]: 7,
+    [sym("U")]: 9
+  ],
+  7 ("PO"): [
+    [sym("S")]: 8
+  ],
+  8 ("POS"): [
+    [sym("T")]: 1
+  ],
+  9 ("PU"): [
+    [sym("T")]: 2
+  ]
+]
+
+If current state is less than "constants.length" than it is related to constant.
+If current state is "constants.length" than it is initial.
+Otherwise state is related to prefix.
+
+We need to review the following subarray:
+[
+  [sym("G")]: 4,
+  [sym("P")]: 6
+]
+
+Length of this array will be fixed - "alphabet.length" elements.
+It is possible to use "constants.length" as undefined value, because next state cant be "constants.length" (empty string).
+
+Lets update "next_state_by_last_symbols" once again:
+[
+  0 ("GET"): [
+    [0 ... (alphabet.length - 1)]: constants.length
+  ],
+  1 ("POST"): [
+    [0 ... (alphabet.length - 1)]: constants.length
+  ],
+  2 ("PUT"): [
+    [0 ... (alphabet.length - 1)]: constants.length
+  ],
+  3 (empty string): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("G")]: 4,
+    [sym("P")]: 6
+  ],
+  4 ("G"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("E")]: 5
+  ],
+  5 ("GE"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("T")]: 0
+  ],
+  6 ("P"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("O")]: 7,
+    [sym("U")]: 9
+  ],
+  7 ("PO"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("S")]: 8
+  ],
+  8 ("POS"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("T")]: 1
+  ],
+  9 ("PU"): [
+    [0 ... (alphabet.length - 1)]: constants.length,
+    [sym("T")]: 2
+  ]
+]
+
+-----
+
+Lets finalize mappings for example.
+
+"constants":
+[
+  0: "GET,
+  1: "POST",
+  2: "PUT"
+]
+
+"alphabet":
+[
+  0: "G",
+  1: "E",
+  2: "T",
+  3: "P",
+  4: "0",
+  5: "S",
+  6: "U"
+]
+
+"symbol_by_bytes":
+[
+  [0 ... 255]: 255,
+  ["G"]: 0,
+  ["E"]: 1,
+  ["T"]: 2,
+  ["P"]: 3,
+  ["O"]: 4,
+  ["S"]: 5,
+  ["U"]: 6
+]
+
+"next_state_by_last_symbols":
+[
+  0 ("GET"): [
+    [0 ... 6]: 3
+  ],
+  1 ("POST"): [
+    [0 ... 6]: 3
+  ],
+  2 ("PUT"): [
+    [0 ... 6]: 3
+  ],
+  3 (empty string): [
+    [0 ... 6]: 3,
+    [0]: 4,
+    [3]: 6
+  ],
+  4 ("G"): [
+    [0 ... 6]: 3,
+    [1]: 5
+  ],
+  5 ("GE"): [
+    [0 ... 6]: 3,
+    [2]: 0
+  ],
+  6 ("P"): [
+    [0 ... 6]: 3,
+    [4]: 7,
+    [6]: 9
+  ],
+  7 ("PO"): [
+    [0 ... 6]: 3,
+    [5]: 8
+  ],
+  8 ("POS"): [
+    [0 ... 6]: 3,
+    [2]: 1
+  ],
+  9 ("PU"): [
+    [0 ... 6]: 3,
+    [2]: 2
+  ]
+]
+
+The only remaining question is state type.
+We need to maintain "max_state" and provide minimal state type.
+It will be used for "next_state_by_last_symbols" to optimize memory consumption.
+
+Fast state type will be unified with other processors.
+
+-----
+
+How to process "GET" message from stream?
+
+Current state is "3".
+Next byte is "G", symbol is symbol_by_bytes["G"] => "0".
+next_state_by_last_symbols[3][0] => "4".
+
+Current state is "4".
+Next byte is "E", symbol is symbol_by_bytes["E"] => "1".
+next_state_by_last_symbols[4][1] => "5".
+
+Current state is "5".
+Next byte is "T", symbol is symbol_by_bytes["T"] => "2".
+next_state_by_last_symbols[5][2] => "0".
+
+Token was completed, current state "0" < 3, so constant can be found using the following way:
+constants[0] => "GET".
+
+-----
+
+How to process "PO" message from stream?
+
+Current state is "3".
+Next byte is "P", symbol is symbol_by_bytes["P"] => "3".
+next_state_by_last_symbols[3][3] => "6".
+
+Current state is "6".
+Next byte is "O", symbol is symbol_by_bytes["O"] => "4".
+next_state_by_last_symbols[6][4] => "7".
+
+Token was completed, current state "7" >= 3, so it is not valid.
+
+-----
+
+How to process "PUG" message from stream?
+
+Current state is "3".
+Next byte is "P", symbol is symbol_by_bytes["P"] => "3".
+next_state_by_last_symbols[3][3] => "6".
+
+Current state is "6".
+Next byte is "U", symbol is symbol_by_bytes["U"] => "6".
+next_state_by_last_symbols[6][6] => "9".
+
+Current state is "9".
+Next byte is "G", symbol is symbol_by_bytes["G"] => "0".
+next_state_by_last_symbols[9][0] => "3".
+
+Current state "3" is undefined, so token is not valid.
+
+-----
+
+How to process "Z" message from stream?
+
+Current state is "3".
+Next byte is "Z", symbol is symbol_by_bytes["Z"] => "255".
+Alphabet is not full, so symbol is undefined, token is invalid.

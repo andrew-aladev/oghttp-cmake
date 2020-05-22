@@ -1,0 +1,53 @@
+Please read "constants_processor" and "constant_processor" docs first.
+
+HTTP requires generic data processing.
+Token values consist of variable amount of bytes.
+The most basic example is "Host: example.com" token.
+
+-----
+
+We won't validate generic data, we will just define allowed alphabet and min/max length of data.
+
+We need only to maintain boolean match for allowed bytes.
+This match can be named as "allowed_bytes".
+
+For example we want to process domains:
+
+"alphabet":
+[
+  0: "a",
+  1: "b",
+  2: "c",
+  ...
+]
+
+"allowed_bytes":
+[
+  [0 ... 255]: false,
+  ["a"]: true,
+  ["b"]: true,
+  ["c"]: true,
+  ...
+]
+
+"min_length" = 1
+"max_length" = 63
+
+-----
+
+We can assign "0" state for empty string (initial state), "1" for "e", "2" for "x", etc.
+"max_state" will be "max_length".
+
+Fast state type will be unified with other processors.
+
+-----
+
+We can add two modes for generic generator: inclusive and exclusive.
+
+Inclusive mode will create: byte ranges + separate bytes = allowed bytes.
+This mode is useful for strict declarations.
+For example: ("0" - "9") range + "." byte = allowed bytes for HTTP version.
+
+Exclusive mode will create: byte ranges - separate bytes = allowed bytes.
+This mode is useful for tolerant declarations.
+For example: ("0" - "255") range - "CR", "CF" bytes = allowed bytes for HTTP status description.
