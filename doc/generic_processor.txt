@@ -11,7 +11,7 @@ We won't validate generic data, we will just define allowed alphabet and min/max
 We need only to maintain boolean match for allowed bytes.
 This match can be named as "allowed_bytes".
 
-For example we want to process domains:
+For example we want to process hosts:
 
 "alphabet":
 [

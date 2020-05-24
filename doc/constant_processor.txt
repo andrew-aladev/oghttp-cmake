@@ -8,4 +8,9 @@ The most basic example is "GET" token for HTTP v0.9.
 We can assign "0" state for empty string (initial state), "1" for "G", "2" for "E", "3" for "T".
 "max_state" will be "constant.length".
 
+Constant itself can be represented as array of bytes in hexadecimal numeral system.
+This representation is easy and won't provide conflicts with other code for any byte from constant.
+
+"constant" = { 0x47, 0x45, 0x54 } // "GET"
+
 Fast state type will be unified with other processors.

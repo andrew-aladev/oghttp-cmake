@@ -4,7 +4,7 @@ The most basic example is "method" token.
 
 "constants":
 [
-  0: "GET,
+  0: "GET",
   1: "POST",
   2: "PUT"
 ]
@@ -247,7 +247,7 @@ Lets finalize mappings for example.
 
 "constants":
 [
-  0: "GET,
+  0: "GET",
   1: "POST",
   2: "PUT"
 ]
@@ -316,6 +316,16 @@ Lets finalize mappings for example.
     [0 ... 6]: 3,
     [2]: 2
   ]
+]
+
+Constants itself can be represented as array of bytes in hexadecimal numeral system.
+This representation is easy and won't provide conflicts with other code for any byte from constant.
+
+"constants":
+[
+  0: { 0x47, 0x45, 0x54 }, // "GET"
+  1: { 0x50, 0x4f, 0x53, 0x54 }, // "POST"
+  2: { 0x50, 0x55, 0x54 } // "PUT"
 ]
 
 The only remaining question is state type.
