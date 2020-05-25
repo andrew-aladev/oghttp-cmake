@@ -17,6 +17,6 @@ add_executable (
   "../common/options_schema.c"
   "data.c"
   "main.c"
-  "max_state.c"
+  "options_data.c"
 )
 target_link_libraries ("main" ${CMAKE_LIBXML2_LIBRARIES})

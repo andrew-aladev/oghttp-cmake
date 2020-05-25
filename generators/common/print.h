@@ -6,7 +6,8 @@
 
 #include <stdio.h>
 
-#define PRINT(string) fputs(string, stdout)
+#define PRINT(string) \
+  fputs(string, stdout)
 
 #define PRINT_ERROR(string) \
   fputs(string, stderr);    \

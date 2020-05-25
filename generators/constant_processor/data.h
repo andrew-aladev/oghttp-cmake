@@ -4,6 +4,6 @@
 #if !defined(DATA_H)
 #define DATA_H
 
-void print_data();
+int print_data(const char* constant);
 
 #endif // DATA_H

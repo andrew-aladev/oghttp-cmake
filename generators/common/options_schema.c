@@ -8,19 +8,19 @@
 #include "config.h"
 #include "print.h"
 
-#define SCHEMA_PATH OGH_SOURCE_PATH "/options.xsd"
+#define SCHEMA_PATH SOURCE_PATH "/options.xsd"
 
-static inline void print_error(void* context, const char* message)
+static inline void print_error(void* _context, const char* message)
 {
   PRINT_ERROR("error: %s", message);
 }
 
-static inline void print_warning(void* context, const char* message)
+static inline void print_warning(void* _context, const char* message)
 {
   PRINT_ERROR("warning: %s", message);
 }
 
-static inline void print_structured_error(void* argument, xmlErrorPtr error)
+static inline void print_structured_error(void* _argument, xmlErrorPtr error)
 {
   PRINT_ERROR("error at line %d, column %d: %s", error->line, error->int2, error->message);
 }

@@ -4,21 +4,25 @@
 #include "data.h"
 
 #include <stdint.h>
+#include <stdlib.h>
 #include <string.h>
 
-#include "options.h"
+#include "options_data.h"
 #include "print.h"
+#include "print_data.h"
 
-#define BYTE_TEMPLATE "0x%02x"
-
-#define PRINT_BYTE(byte) printf(BYTE_TEMPLATE, byte);
-
-void print_data()
+int print_data(const char* constant)
 {
+  size_t constant_length = strlen(constant);
+  if (constant_length > UINT32_MAX) {
+    PRINT_ERROR("constant length is too big");
+    return 1;
+  }
+
   INITIALIZE_SPACERS();
 
-  for (size_t index = 0; index < strlen(OGH_CONSTANT); index++) {
-    uint8_t byte = OGH_CONSTANT[index];
+  for (size_t index = 0; index < constant_state; index++) {
+    uint8_t byte = constant[index];
 
     PRINT_SPACER();
     PRINT_BYTE(byte);
@@ -26,6 +30,8 @@ void print_data()
 
   PRINT_GLUE();
 
-  PRINT_LENGTH(strlen(OGH_CONSTANT));
+  PRINT_LENGTH(constant_state);
   PRINT_GLUE();
+
+  return 0;
 }
