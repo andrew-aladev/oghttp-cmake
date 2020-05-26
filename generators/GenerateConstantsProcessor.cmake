@@ -1,19 +1,21 @@
-function (generate_constants_processor PREFIX TARGET_PATH)
-  string (TOLOWER ${PREFIX} PREFIX_LOWER_CASE)
-  set (PREFIX_LOWER_CASE ${PREFIX_LOWER_CASE} PARENT_SCOPE)
+set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-  set (MESSAGE_PREFIX "${PREFIX_LOWER_CASE} constants processor")
+function (generate_constants_processor NAME)
+  string (TOLOWER ${NAME} NAME_LOWER_CASE)
+  set (NAME_LOWER_CASE ${NAME_LOWER_CASE} PARENT_SCOPE)
 
-  set (OUTPUT_CONSTANTS_LENGTH "CMAKE_CONSTANTS_LENGTH")
-  set (OUTPUT_ALPHABET_LENGTH "CMAKE_ALPHABET_LENGTH")
-  set (OUTPUT_SYMBOL_BY_BYTES "CMAKE_SYMBOL_BY_BYTES")
-  set (OUTPUT_MAX_STATE "CMAKE_MAX_STATE")
-  set (OUTPUT_MIN_STATE_BITS "CMAKE_MIN_STATE_BITS")
+  set (MESSAGE_PREFIX "${NAME_LOWER_CASE} constants processor")
+
+  set (OUTPUT_CONSTANTS_LENGTH           "CMAKE_CONSTANTS_LENGTH")
+  set (OUTPUT_ALPHABET_LENGTH            "CMAKE_ALPHABET_LENGTH")
+  set (OUTPUT_SYMBOL_BY_BYTES            "CMAKE_SYMBOL_BY_BYTES")
+  set (OUTPUT_MAX_STATE                  "CMAKE_MAX_STATE")
+  set (OUTPUT_MIN_STATE_BITS             "CMAKE_MIN_STATE_BITS")
   set (OUTPUT_NEXT_STATE_BY_LAST_SYMBOLS "CMAKE_NEXT_STATE_BY_LAST_SYMBOLS")
 
-  set (NAME "cmake_generate_constants_processor")
-  set (BINARY_DIR "${PROJECT_BINARY_DIR}/CMakeTmp/generate_constants_processor")
-  set (SOURCE_DIR "${PROJECT_SOURCE_DIR}/cmake/generators/constants_processor")
+  set (NAME "cmake_generator_constants_processor")
+  set (SOURCE_DIR "${CURRENT_LIST_DIR}/constants_processor")
+  set (BINARY_DIR "${PROJECT_BINARY_DIR}/generator_constants_processor")
 
   include (GetVerboseFlags)
   cmake_get_verbose_flags ()
@@ -26,7 +28,6 @@ function (generate_constants_processor PREFIX TARGET_PATH)
     CMAKE_FLAGS
       "-DCMAKE_C_FLAGS=${CMAKE_VERBOSE_C_FLAGS} ${CMAKE_C11_C_FLAGS} ${CMAKE_WERROR_C_FLAGS}"
       "-DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}"
-      "-DCMAKE_TARGET_PATH=${TARGET_PATH}"
     OUTPUT_VARIABLE COMPILE_OUTPUT
   )
 
@@ -75,6 +76,4 @@ function (generate_constants_processor PREFIX TARGET_PATH)
     unset (${OUTPUT_NEXT_STATE_BY_LAST_SYMBOLS} PARENT_SCOPE)
     message (STATUS "${MESSAGE_PREFIX} - compilation failed, using default")
   endif ()
-
-  file (REMOVE_RECURSE ${BINARY_DIR})
 endfunction ()

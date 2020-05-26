@@ -4,6 +4,6 @@
 #if !defined(OPTIONS_SCHEMA_H)
 #define OPTIONS_SCHEMA_H
 
-int validate_options_schema(const char* options_path);
+int validate_options_schema(const char* path);
 
 #endif // OPTIONS_SCHEMA_H

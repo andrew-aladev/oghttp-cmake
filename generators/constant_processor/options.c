@@ -1,7 +1,7 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "options_data.h"
+#include "options.h"
 
 #include <libxml/HTMLparser.h>
 #include <libxml/parser.h>
@@ -49,12 +49,12 @@ static inline int read_constant(const htmlDocPtr document, const char** constant
   return 0;
 }
 
-int read_options_data(const char* options_path, const char** constant_ptr)
+int read_options(const char* path, const char** constant_ptr)
 {
   xmlInitParser();
   LIBXML_TEST_VERSION
 
-  const htmlDocPtr document = htmlParseFile(options_path, NULL);
+  const htmlDocPtr document = htmlParseFile(path, NULL);
   if (document == NULL) {
     PRINT_ERROR("failed to parse HTML file");
     xmlCleanupParser();
@@ -62,12 +62,13 @@ int read_options_data(const char* options_path, const char** constant_ptr)
   }
 
   int result = read_constant(document, constant_ptr);
-  if (result != 0) {
-    result = 2;
-  }
 
   xmlFreeDoc(document);
   xmlCleanupParser();
+
+  if (result != 0) {
+    result = 2;
+  }
 
   return result;
 }

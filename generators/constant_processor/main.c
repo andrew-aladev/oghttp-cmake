@@ -1,7 +1,8 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "options_data.h"
+#include "data.h"
+#include "options.h"
 #include "options_schema.h"
 #include "print.h"
 
@@ -18,11 +19,17 @@ int main(int argc, const char** argv)
   }
 
   const char* constant;
-  if (read_options_data(options_path, &constant) != 0) {
+  if (read_options(options_path, &constant) != 0) {
     return 3;
   }
 
+  int result = print_data(constant);
+
   free(constant);
 
-  return 0;
+  if (result != 0) {
+    result = 4;
+  }
+
+  return result;
 }

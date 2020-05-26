@@ -1,14 +1,16 @@
-function (generate_constants_from_registry PREFIX)
-  string (TOLOWER ${PREFIX} PREFIX_LOWER_CASE)
-  set (PREFIX_LOWER_CASE ${PREFIX_LOWER_CASE} PARENT_SCOPE)
+set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-  set (MESSAGE_PREFIX "${PREFIX_LOWER_CASE} constants from registry")
+function (generate_constants_from_registry NAME)
+  string (TOLOWER ${NAME} NAME_LOWER_CASE)
+  set (NAME_LOWER_CASE ${NAME_LOWER_CASE} PARENT_SCOPE)
+
+  set (MESSAGE_PREFIX "${NAME_LOWER_CASE} constants from registry")
 
   set (OUTPUT_CONSTANTS "CMAKE_CONSTANTS")
 
-  set (NAME "cmake_generate_constants_from_registry")
-  set (BINARY_DIR "${PROJECT_BINARY_DIR}/CMakeTmp/generate_constants_from_registry")
-  set (SOURCE_DIR "${PROJECT_SOURCE_DIR}/cmake/generators/constants_from_registry")
+  set (NAME "cmake_generator_constants_from_registry")
+  set (SOURCE_DIR "${CURRENT_LIST_DIR}/constants_from_registry")
+  set (BINARY_DIR "${PROJECT_BINARY_DIR}/generator_constants_from_registry")
 
   find_package (LibXml2)
 

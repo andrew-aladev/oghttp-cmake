@@ -8,7 +8,7 @@
 #include "config.h"
 #include "print.h"
 
-#define SCHEMA_PATH SOURCE_PATH "/options.xsd"
+#define SCHEMA_PATH PROCESSOR_PATH "/options.xsd"
 
 static inline void print_error(void* _context, const char* message)
 {
@@ -25,7 +25,7 @@ static inline void print_structured_error(void* _argument, xmlErrorPtr error)
   PRINT_ERROR("error at line %d, column %d: %s", error->line, error->int2, error->message);
 }
 
-int validate_options_schema(const char* options_path)
+int validate_options_schema(const char* path)
 {
   xmlSchemaParserCtxtPtr schema_context = xmlSchemaNewParserCtxt(SCHEMA_PATH);
   if (schema_context == NULL) {
@@ -54,7 +54,7 @@ int validate_options_schema(const char* options_path)
   xmlSchemaSetValidErrors(validation_context, print_error, print_warning, NULL);
   xmlSchemaSetValidStructuredErrors(validation_context, print_structured_error, NULL);
 
-  int result = xmlSchemaValidateFile(validation_context, options_path, 0);
+  int result = xmlSchemaValidateFile(validation_context, path, 0);
 
   xmlSchemaFreeValidCtxt(validation_context);
   xmlSchemaFree(schema);

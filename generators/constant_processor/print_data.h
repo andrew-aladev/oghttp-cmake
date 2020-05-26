@@ -29,4 +29,9 @@
 #define PRINT_BYTE(byte) \
   printf(BYTE_TEMPLATE, byte);
 
+#define LENGTH_TEMPLATE "%zu"
+
+#define PRINT_LENGTH(length) \
+  printf(LENGTH_TEMPLATE, length);
+
 #endif // PRINT_DATA_H

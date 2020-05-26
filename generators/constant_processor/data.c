@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "options_data.h"
 #include "print.h"
 #include "print_data.h"
 
@@ -21,7 +20,7 @@ int print_data(const char* constant)
 
   INITIALIZE_SPACERS();
 
-  for (size_t index = 0; index < constant_state; index++) {
+  for (size_t index = 0; index < constant_length; index++) {
     uint8_t byte = constant[index];
 
     PRINT_SPACER();
@@ -30,7 +29,7 @@ int print_data(const char* constant)
 
   PRINT_GLUE();
 
-  PRINT_LENGTH(constant_state);
+  PRINT_LENGTH(constant_length);
   PRINT_GLUE();
 
   return 0;
