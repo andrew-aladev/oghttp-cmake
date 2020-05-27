@@ -1,0 +1,24 @@
+language: c
+
+dist: bionic
+osx_image: xcode11.2
+
+jobs:
+  include:
+    - os: linux
+      arch: amd64
+    - os: osx
+      arch: amd64
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - libxml2-dev
+  homebrew:
+    packages:
+      - libxml2
+    update: true
+
+script:
+  - scripts/toolchains.sh

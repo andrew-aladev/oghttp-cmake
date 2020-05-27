@@ -1,2 +1,5 @@
 build/*
 generators/constant_processor/config.h
+generators/constants_processor/config.h
+generators/generic_processor/config.h
+tmp

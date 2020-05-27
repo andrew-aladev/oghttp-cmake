@@ -1,0 +1,11 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: puchuu/test-oghttp-cmake_x86_64-gentoo-linux-musl:latest
+    branches:
+      only:
+        - master
+    steps:
+      - run: /home/entrypoint.sh

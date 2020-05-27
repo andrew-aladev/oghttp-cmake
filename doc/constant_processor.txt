@@ -13,4 +13,4 @@ This representation is easy and won't provide conflicts with other code for any 
 
 "constant" = { 0x47, 0x45, 0x54 } // "GET"
 
-Fast state type will be unified with other processors.
+State type will be unified with other processors.

@@ -1,0 +1,9 @@
+image: Ubuntu
+
+init:
+  - sh: sudo apt-get install -y libxml2-dev
+
+test_script:
+  - sh: scripts/toolchains.sh
+
+build: off
