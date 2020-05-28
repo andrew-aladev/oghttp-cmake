@@ -65,6 +65,6 @@ function (generate_constants_from_registry NAME)
 
   else ()
     unset (${OUTPUT_CONSTANTS} PARENT_SCOPE)
-    message (STATUS "${MESSAGE_PREFIX} - XML2 is not working, using default")
+    message (STATUS "${MESSAGE_PREFIX} - LibXML2 is not working, using default")
   endif ()
 endfunction ()

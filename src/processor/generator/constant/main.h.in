@@ -1,0 +1,37 @@
+// Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
+// Copyright (c) 2019 AUTHORS, MIT License.
+
+// This file was generated, do not edit manually.
+
+// It may not be possible to run generator while cross compiling.
+// So generated file should be distributed with its template.
+
+#if !defined(OGH_PROCESSOR_@NAME@_H)
+#define OGH_PROCESSOR_@NAME@_H
+
+#include <stdbool.h>
+
+#include "@RELATIVE_SOURCE_PATH@common.h"
+#include "@RELATIVE_SOURCE_PATH@log.h"
+
+extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+
+extern const ogh_symbol_t          OGH_PROCESSOR_@NAME@_CONSTANT_BYTES[];
+extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANT_LENGTH;
+
+inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_symbol_t byte)
+{
+  if (OGH_PROCESSOR_@NAME@_CONSTANT_BYTES[state] != byte) {
+    OGH_LOG_ERROR("@NAME_LOWER_CASE@ processor received invalid byte: %u", byte);
+    return OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+  }
+
+  return state + 1;
+}
+
+inline bool ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state)
+{
+  return state == OGH_PROCESSOR_@NAME@_CONSTANT_LENGTH;
+}
+
+#endif // OGH_PROCESSOR_@NAME@_H

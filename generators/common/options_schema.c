@@ -6,23 +6,24 @@
 #include <libxml/xmlschemas.h>
 
 #include "config.h"
+#include "macro.h"
 #include "print.h"
 
 #define SCHEMA_PATH PROCESSOR_PATH "/options.xsd"
 
-static inline void print_error(void* _context, const char* message)
+static inline void print_error(void* UNUSED(context), const char* message, ...)
 {
-  PRINT_ERROR("error: %s", message);
+  PRINTF_ERROR("error: %s", message);
 }
 
-static inline void print_warning(void* _context, const char* message)
+static inline void print_warning(void* UNUSED(context), const char* message, ...)
 {
-  PRINT_ERROR("warning: %s", message);
+  PRINTF_ERROR("warning: %s", message);
 }
 
-static inline void print_structured_error(void* _argument, xmlErrorPtr error)
+static inline void print_structured_error(void* UNUSED(argument), xmlErrorPtr error)
 {
-  PRINT_ERROR("error at line %d, column %d: %s", error->line, error->int2, error->message);
+  PRINTF_ERROR("error at line %d, column %d: %s", error->line, error->int2, error->message);
 }
 
 int validate_options_schema(const char* path)

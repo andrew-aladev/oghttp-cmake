@@ -13,4 +13,8 @@
   fputs(string, stderr);    \
   fputc('\n', stderr);
 
+#define PRINTF_ERROR(...)       \
+  fprintf(stderr, __VA_ARGS__); \
+  fputs("\n", stderr);
+
 #endif // PRINT_H

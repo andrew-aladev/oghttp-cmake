@@ -5,7 +5,7 @@ function (generate_constant NAME)
   set (TARGET_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
   include (GenerateConstantProcessor)
-  generate_constant_processor (${NAME} ${TARGET_PATH})
+  generate_constant_processor (${NAME} "${TARGET_PATH}/options.xml")
 
   if (DEFINED CMAKE_CONSTANT_BYTES)
     file (RELATIVE_PATH RELATIVE_SOURCE_PATH ${TARGET_PATH} ${SOURCE_PATH})

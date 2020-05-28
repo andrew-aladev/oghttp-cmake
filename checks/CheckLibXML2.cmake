@@ -5,7 +5,7 @@ function (cmake_check_libxml2)
     return ()
   endif ()
 
-  set (MESSAGE_PREFIX "Status of XML2 support")
+  set (MESSAGE_PREFIX "Status of LibXML2 support")
 
   set (NAME "cmake_check_libxml2")
   set (SOURCE_DIR "${CURRENT_LIST_DIR}/LibXML2")
@@ -52,7 +52,7 @@ function (cmake_check_libxml2)
     message (STATUS "${MESSAGE_PREFIX} - library not found")
   endif ()
 
-  set (CMAKE_LIBXML2_WORKS ${CMAKE_LIBXML2_WORKS} CACHE STRING "Status of XML2")
+  set (CMAKE_LIBXML2_WORKS ${CMAKE_LIBXML2_WORKS} CACHE STRING "Status of LibXML2")
 
   mark_as_advanced (CMAKE_LIBXML2_WORKS)
 endfunction ()

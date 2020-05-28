@@ -4,6 +4,6 @@
 #if !defined(OPTIONS_H)
 #define OPTIONS_H
 
-int read_options(const char* path, const char** constant_ptr);
+int read_options(const char* path, char** constant_ptr);
 
 #endif // OPTIONS_H

@@ -11,8 +11,8 @@
 #define PREFIX "  "
 #define TERMINATOR ",\n"
 
-#define INITIALIZE_SPACERS(is_first) \
-  bool is_first_spacer = is_first;
+#define INITIALIZE_SPACERS() \
+  bool is_first_spacer = true;
 
 #define PRINT_SPACER()       \
   if (is_first_spacer) {     \
@@ -23,6 +23,11 @@
     PRINT(TERMINATOR);       \
     PRINT(PREFIX);           \
   }
+
+#define GLUE ";"
+
+#define PRINT_GLUE() \
+  PRINT(GLUE);
 
 #define BYTE_TEMPLATE "0x%02x"
 

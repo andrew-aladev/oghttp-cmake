@@ -8,9 +8,11 @@
 #include <libxml/xpath.h>
 #include <string.h>
 
-#define CONSTANT_XPATH "/constant"
+#include "print.h"
 
-static inline int read_constant(const htmlDocPtr document, const char** constant_ptr)
+#define CONSTANT_XPATH "//constant"
+
+static inline int read_constant(const htmlDocPtr document, char** constant_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
@@ -33,7 +35,7 @@ static inline int read_constant(const htmlDocPtr document, const char** constant
     return 3;
   }
 
-  const char* constant = strdup((const char*)xmlNodeGetContent(nodes->nodeTab[0]));
+  char* constant = strdup((const char*)xmlNodeGetContent(nodes->nodeTab[0]));
   if (constant == NULL) {
     PRINT_ERROR("failed to duplicate constant value");
     xmlXPathFreeObject(xpath_object);
@@ -49,7 +51,7 @@ static inline int read_constant(const htmlDocPtr document, const char** constant
   return 0;
 }
 
-int read_options(const char* path, const char** constant_ptr)
+int read_options(const char* path, char** constant_ptr)
 {
   xmlInitParser();
   LIBXML_TEST_VERSION
