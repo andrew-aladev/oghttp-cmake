@@ -1,0 +1,50 @@
+// Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
+// Copyright (c) 2019 AUTHORS, MIT License.
+
+// This file was generated, do not edit manually.
+
+// It may not be possible to run generator while cross compiling.
+// So generated file should be distributed with its template.
+
+#if !defined(OGH_PROCESSOR_@NAME@_H)
+#define OGH_PROCESSOR_@NAME@_H
+
+#include <stdbool.h>
+
+#include "@RELATIVE_SOURCE_PATH@common.h"
+#include "@RELATIVE_SOURCE_PATH@log.h"
+
+extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+
+extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
+
+extern const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH;
+extern const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH;
+
+extern const ogh_byte_t OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL;
+extern const ogh_byte_t OGH_PROCESSOR_@NAME@_SYMBOL_BY_BYTES[];
+
+typedef uint@CMAKE_MIN_STATE_BITS@_t ogh_processor_@NAME_LOWER_CASE@_state_t;
+
+extern const ogh_processor_@NAME_LOWER_CASE@_state_t OGH_PROCESSOR_@NAME@_NEXT_STATE_BY_LAST_SYMBOLS[];
+
+inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_byte_t byte)
+{
+  ogh_byte_t symbol = OGH_PROCESSOR_@NAME@_SYMBOL_BY_BYTES[byte];
+
+  // We need to verify symbol if alphabet is not full.
+  if (OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH != OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH && symbol == OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL) {
+    OGH_LOG_ERROR("@NAME_LOWER_CASE@ processor received invalid byte: %u", byte);
+    return OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+  }
+
+  return OGH_PROCESSOR_@NAME@_NEXT_STATE_BY_LAST_SYMBOLS[state * OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH + symbol];
+}
+
+inline bool ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state)
+{
+  // State of each constant equals to its index.
+  return state < OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
+}
+
+#endif // OGH_PROCESSOR_@NAME@_H
