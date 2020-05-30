@@ -10,8 +10,12 @@
 
 const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE = 0;
 
+// clang-format off
+
 const ogh_byte_t OGH_PROCESSOR_@NAME@_CONSTANT_BYTES[] = {
 @CMAKE_CONSTANT_BYTES@};
+
+// clang-format on
 
 const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANT_LENGTH = @CMAKE_CONSTANT_LENGTH@;
 

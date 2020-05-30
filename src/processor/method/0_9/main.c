@@ -10,10 +10,14 @@
 
 const ogh_processor_state_t OGH_PROCESSOR_METHOD_0_9_INITIAL_STATE = 0;
 
+// clang-format off
+
 const ogh_byte_t OGH_PROCESSOR_METHOD_0_9_CONSTANT_BYTES[] = {
-  0x47,
-  0x45,
-  0x54};
+0x47,
+0x45,
+0x54};
+
+// clang-format on
 
 const ogh_processor_state_t OGH_PROCESSOR_METHOD_0_9_CONSTANT_LENGTH = 3;
 

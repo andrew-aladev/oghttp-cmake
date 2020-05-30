@@ -13,6 +13,8 @@
 int print_data(const char* constant)
 {
   size_t constant_length = strlen(constant);
+
+  // Unsigned int 32 will be used as unified processor state type.
   if (constant_length > UINT32_MAX) {
     PRINT_ERROR("constant length is too big");
     return 1;

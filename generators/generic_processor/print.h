@@ -7,7 +7,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define PREFIX "  "
 #define TERMINATOR ",\n"
 #define GLUE ";"
 
@@ -23,12 +22,10 @@
 
 #define PRINT_SPACER()       \
   if (is_first_spacer) {     \
-    PRINT(PREFIX);           \
     is_first_spacer = false; \
   }                          \
   else {                     \
     PRINT(TERMINATOR);       \
-    PRINT(PREFIX);           \
   }
 
 #define LENGTH_TEMPLATE "%zu"
