@@ -332,7 +332,7 @@ The only remaining question is state type.
 We need to maintain "max_state" and provide minimal state type.
 It will be used for "next_state_by_last_symbols" to optimize memory consumption.
 
-State type will be unified with other processors.
+We need to use "size_t" type to handle constant lengths, so type of processor state will be "size_t".
 
 -----
 

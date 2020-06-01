@@ -17,8 +17,7 @@ const ogh_byte_t OGH_PROCESSOR_@NAME@_CONSTANT_BYTES[] = {
 
 // clang-format on
 
-const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANT_LENGTH = @CMAKE_CONSTANT_LENGTH@;
+const size_t OGH_PROCESSOR_@NAME@_CONSTANT_LENGTH = @CMAKE_CONSTANT_LENGTH@;
 
 extern inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_byte_t byte);
-
-extern inline bool ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state);
+extern inline bool                  ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state);

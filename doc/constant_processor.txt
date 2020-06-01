@@ -13,4 +13,4 @@ This representation is easy and won't provide conflicts with other code for any 
 
 "constant" = { 0x47, 0x45, 0x54 } // "GET"
 
-State type will be unified with other processors.
+We need to use "size_t" type to handle constant length, so type of processor state will be "size_t".

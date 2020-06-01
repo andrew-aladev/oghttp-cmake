@@ -21,17 +21,13 @@ int main(int argc, const char** argv)
   }
 
   char* constant;
+
   if (read_options(options_path, &constant) != 0) {
     return 3;
   }
 
-  int result = print_data(constant);
-
+  print_data(constant);
   free(constant);
 
-  if (result != 0) {
-    result = 4;
-  }
-
-  return result;
+  return 0;
 }
