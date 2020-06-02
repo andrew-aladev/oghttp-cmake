@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-  <constants>
-    <constant>GET</constant>
-    <constant>HEAD</constant>
-    <constant>POST</constant>
-  </constants>
-</root>

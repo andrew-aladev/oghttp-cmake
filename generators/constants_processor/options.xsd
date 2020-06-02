@@ -6,7 +6,7 @@
         <xs:element name="constants">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="constant" type="xs:string" />
+              <xs:element name="constant" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

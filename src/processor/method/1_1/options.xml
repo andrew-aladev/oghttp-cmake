@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <constants>
+    <constant>ACL</constant>
+    <constant>BASELINE-CONTROL</constant>
+    <constant>BIND</constant>
+    <constant>CHECKIN</constant>
+    <constant>CHECKOUT</constant>
+    <constant>CONNECT</constant>
+    <constant>COPY</constant>
+    <constant>DELETE</constant>
+    <constant>GET</constant>
+    <constant>HEAD</constant>
+    <constant>LABEL</constant>
+    <constant>LINK</constant>
+    <constant>LOCK</constant>
+    <constant>MERGE</constant>
+    <constant>MKACTIVITY</constant>
+    <constant>MKCALENDAR</constant>
+    <constant>MKCOL</constant>
+    <constant>MKREDIRECTREF</constant>
+    <constant>MKWORKSPACE</constant>
+    <constant>MOVE</constant>
+    <constant>OPTIONS</constant>
+    <constant>ORDERPATCH</constant>
+    <constant>PATCH</constant>
+    <constant>POST</constant>
+    <constant>PRI</constant>
+    <constant>PROPFIND</constant>
+    <constant>PROPPATCH</constant>
+    <constant>PUT</constant>
+    <constant>REBIND</constant>
+    <constant>REPORT</constant>
+    <constant>SEARCH</constant>
+    <constant>TRACE</constant>
+    <constant>UNBIND</constant>
+    <constant>UNCHECKOUT</constant>
+    <constant>UNLINK</constant>
+    <constant>UNLOCK</constant>
+    <constant>UPDATE</constant>
+    <constant>UPDATEREDIRECTREF</constant>
+    <constant>VERSION-CONTROL</constant>
+  </constants>
+</root>

@@ -49,6 +49,9 @@ static inline int read_constants(const htmlDocPtr document, char*** constants_pt
     char* constant = strdup((const char*)xmlNodeGetContent(nodes->nodeTab[index]));
     if (constant == NULL) {
       PRINT_ERROR("failed to duplicate constant value");
+      for (size_t jndex = 0; jndex < index; jndex++) {
+        free(constants[jndex]);
+      }
       free(constants);
       xmlXPathFreeObject(xpath_object);
       xmlXPathFreeContext(xpath_context);

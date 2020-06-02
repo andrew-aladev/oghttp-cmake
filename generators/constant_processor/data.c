@@ -8,11 +8,10 @@
 #include <string.h>
 
 #include "print.h"
-#include "print_data.h"
 
 void print_data(const char* constant)
 {
-  INITIALIZE_SPACERS();
+  INITIALIZE_SPACERS(true);
 
   size_t constant_length = strlen(constant);
 
