@@ -88,8 +88,8 @@ int read_options(const char* path, char*** constants_ptr, size_t* constants_leng
   xmlCleanupParser();
 
   if (result != 0) {
-    result = 2;
+    return 2;
   }
 
-  return result;
+  return 0;
 }

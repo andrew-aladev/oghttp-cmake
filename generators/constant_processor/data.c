@@ -9,7 +9,7 @@
 
 #include "print.h"
 
-void print_data(const char* constant)
+void process_data(const char* constant)
 {
   INITIALIZE_SPACERS(true);
 
