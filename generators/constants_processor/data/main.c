@@ -3,13 +3,22 @@
 
 #include "main.h"
 
-#include "prefix_length.h"
+#include "constants.h"
+#include "prefix.h"
 
 int process_data(const char** constants, size_t constants_length)
 {
   size_t prefixes_length;
   if (init_prefixes_length(constants, constants_length, &prefixes_length) != 0) {
     return 1;
+  }
+
+  // print
+
+  print_constants_length(constants_length);
+
+  if (print_constant_states(constants, constants_length) != 0) {
+    return 2;
   }
 
   return 0;

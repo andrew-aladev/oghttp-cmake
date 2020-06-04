@@ -10,6 +10,9 @@
 #define PRINT(string) \
   fputs(string, stdout)
 
+#define PRINTF(...) \
+  fprintf(stdout, __VA_ARGS__);
+
 #define PRINT_ERROR(string) \
   fputs(string, stderr);    \
   fputc('\n', stderr);
@@ -45,13 +48,13 @@
 #define BYTE_TEMPLATE "0x%02x"
 
 #define PRINT_BYTE(byte) \
-  printf(BYTE_TEMPLATE, byte);
+  PRINTF(BYTE_TEMPLATE, byte);
 
 // Length
 
 #define LENGTH_TEMPLATE "%zu"
 
 #define PRINT_LENGTH(length) \
-  printf(LENGTH_TEMPLATE, length);
+  PRINTF(LENGTH_TEMPLATE, length);
 
 #endif // PRINT_H
