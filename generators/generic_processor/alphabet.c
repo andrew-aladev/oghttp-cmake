@@ -30,12 +30,11 @@ static inline bool find_byte_in_ranges(char target_byte)
 
 static inline void print_alphabet_including_bytes_into_ranges()
 {
-  INITIALIZE_SPACERS();
+  INITIALIZE_SPACERS(true);
 
-  size_t index;
-  char   byte;
+  char byte;
 
-  for (index = 0; index < OGH_ALPHABET_RANGES_LENGTH; index++) {
+  for (size_t index = 0; index < OGH_ALPHABET_RANGES_LENGTH; index++) {
     ogh_alphabet_range_t range = OGH_ALPHABET_RANGES[index];
 
     byte = range.from;
@@ -51,7 +50,7 @@ static inline void print_alphabet_including_bytes_into_ranges()
     }
   }
 
-  for (index = 0; index < OGH_ALPHABET_LENGTH; index++) {
+  for (size_t index = 0; index < OGH_ALPHABET_LENGTH; index++) {
     byte = OGH_ALPHABET[index];
 
     if (!find_byte_in_ranges(byte)) {
@@ -78,12 +77,11 @@ static inline bool find_byte_in_bytes(char target_byte)
 
 static inline void print_alphabet_excluding_bytes_from_ranges()
 {
-  INITIALIZE_SPACERS();
+  INITIALIZE_SPACERS(true);
 
-  size_t index;
-  char   byte;
+  char byte;
 
-  for (index = 0; index < OGH_ALPHABET_RANGES_LENGTH; index++) {
+  for (size_t index = 0; index < OGH_ALPHABET_RANGES_LENGTH; index++) {
     ogh_alphabet_range_t range = OGH_ALPHABET_RANGES[index];
 
     byte = range.from;

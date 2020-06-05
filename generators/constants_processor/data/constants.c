@@ -37,9 +37,10 @@ int print_constant_states(const char** constants, size_t constants_length)
       snprintf(constant_macro + jndex * 2, 3, MACRO_SYMBOL_TEMPLATE, constant[jndex]);
     }
 
+    PRINT_SPACER();
+
     // Constant state equals to index.
     PRINTF(STATE_TEMPLATE, constant_macro, index);
-    PRINT_SPACER();
 
     free(constant_macro);
   }

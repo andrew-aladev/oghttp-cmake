@@ -18,9 +18,11 @@ include_directories (
 add_executable (
   "main"
   "../common/options_schema.c"
+  "data/alphabet.c"
   "data/constants.c"
   "data/main.c"
   "data/prefix.c"
+  "data/state.c"
   "main.c"
   "options.c"
 )

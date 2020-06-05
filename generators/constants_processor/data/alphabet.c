@@ -5,7 +5,6 @@
 
 #include <string.h>
 
-#include "options.h"
 #include "print.h"
 
 #define ALPHABET_MAX_LENGTH UINT8_MAX + 1
@@ -32,45 +31,54 @@ static inline bool is_alphabet_full(size_t alphabet_length)
   return alphabet_length == ALPHABET_MAX_LENGTH;
 }
 
-int init_alphabet(uint8_t** alphabet_ptr, uint8_t** symbol_by_bytes_ptr, size_t* alphabet_length_ptr)
+int init_alphabet(
+  const char** constants, size_t constants_length,
+  uint8_t** alphabet_ptr, size_t* alphabet_length_ptr, uint8_t** symbol_by_bytes_ptr)
 {
-  *alphabet_ptr = malloc(ALPHABET_MAX_LENGTH);
-  if (*alphabet_ptr == NULL) {
+  uint8_t* alphabet = malloc(ALPHABET_MAX_LENGTH);
+  if (alphabet == NULL) {
     PRINT_ERROR("failed to allocate memory for alphabet");
     return 1;
   }
 
-  *symbol_by_bytes_ptr = malloc(SYMBOL_BY_BYTES_LENGTH);
-  if (*symbol_by_bytes_ptr == NULL) {
+  size_t alphabet_length = 0;
+
+  uint8_t* symbol_by_bytes = malloc(SYMBOL_BY_BYTES_LENGTH);
+  if (symbol_by_bytes == NULL) {
     PRINT_ERROR("failed to allocate memory for symbol by bytes");
-    free(*alphabet_ptr);
+    free(alphabet);
     return 2;
   }
 
-  size_t index;
-
-  for (index = 0; index < SYMBOL_BY_BYTES_LENGTH; index++) {
-    (*symbol_by_bytes_ptr)[index] = UNDEFINED_SYMBOL;
+  for (size_t index = 0; index < SYMBOL_BY_BYTES_LENGTH; index++) {
+    symbol_by_bytes[index] = UNDEFINED_SYMBOL;
   }
 
-  *alphabet_length_ptr = 0;
-
-  for (index = 0; index < OGH_CONSTANTS_LENGTH; index++) {
-    const char* constant = OGH_CONSTANTS[index];
+  for (size_t index = 0; index < constants_length; index++) {
+    const char* constant = constants[index];
 
     for (size_t jndex = 0; jndex < strlen(constant); jndex++) {
       uint8_t byte = constant[jndex];
 
-      if (!has_symbol_for_byte(*symbol_by_bytes_ptr, byte)) {
-        add_symbol(*alphabet_ptr, *symbol_by_bytes_ptr, alphabet_length_ptr, byte);
+      if (!has_symbol_for_byte(symbol_by_bytes, byte)) {
+        add_symbol(alphabet, symbol_by_bytes, &alphabet_length, byte);
 
-        if (is_alphabet_full(*alphabet_length_ptr)) {
-          // We don't need other constants, alphabet is already full.
-          return 0;
+        if (is_alphabet_full(alphabet_length)) {
+          // We don't need other symbols, alphabet is already full.
+          break;
         }
       }
     }
+
+    if (is_alphabet_full(alphabet_length)) {
+      // We don't need other constants, alphabet is already full.
+      break;
+    }
   }
+
+  *alphabet_ptr        = alphabet;
+  *alphabet_length_ptr = alphabet_length;
+  *symbol_by_bytes_ptr = symbol_by_bytes;
 
   return 0;
 }
@@ -83,17 +91,15 @@ void print_alphabet_length(size_t alphabet_length)
 
 #define SYMBOL_BY_BYTE_TEMPLATE "[%u] = %u"
 
-#define PRINT_SYMBOL_BY_BYTE(byte, symbol) printf(SYMBOL_BY_BYTE_TEMPLATE, byte, symbol);
-
-void print_symbol_by_bytes(const uint8_t* alphabet, const uint8_t* symbol_by_bytes, size_t alphabet_length)
+void print_symbol_by_bytes(const uint8_t* alphabet, size_t alphabet_length, const uint8_t* symbol_by_bytes)
 {
-  INITIALIZE_SPACERS();
+  INITIALIZE_SPACERS(true);
 
   for (size_t index = 0; index < alphabet_length; index++) {
     uint8_t byte = alphabet[index];
 
     PRINT_SPACER();
-    PRINT_SYMBOL_BY_BYTE(byte, symbol_by_bytes[byte]);
+    PRINTF(SYMBOL_BY_BYTE_TEMPLATE, byte, symbol_by_bytes[byte])
   }
 
   PRINT_GLUE();

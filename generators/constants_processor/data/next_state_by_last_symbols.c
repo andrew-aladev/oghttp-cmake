@@ -38,16 +38,14 @@ int init_next_state_by_last_symbols(
     return 1;
   }
 
-  size_t index;
-
   // Initialize all next states with initial state.
-  for (index = 0; index < *next_state_by_last_symbols_length_ptr; index++) {
+  for (size_t index = 0; index < *next_state_by_last_symbols_length_ptr; index++) {
     (*next_state_by_last_symbols_ptr)[index] = INITIAL_STATE;
   }
 
   size_t global_state = INITIAL_STATE;
 
-  for (index = 0; index < OGH_CONSTANTS_LENGTH; index++) {
+  for (size_t index = 0; index < OGH_CONSTANTS_LENGTH; index++) {
     // Starting with empty string and initial state.
     const char* constant = OGH_CONSTANTS[index];
     size_t      state    = INITIAL_STATE;
@@ -92,7 +90,7 @@ int init_next_state_by_last_symbols(
 
 void print_next_state_by_last_symbols(const size_t* next_state_by_last_symbols, size_t next_state_by_last_symbols_length)
 {
-  INITIALIZE_SPACERS();
+  INITIALIZE_SPACERS(true);
 
   for (size_t index = 0; index < next_state_by_last_symbols_length; index++) {
     size_t next_state = next_state_by_last_symbols[index];
