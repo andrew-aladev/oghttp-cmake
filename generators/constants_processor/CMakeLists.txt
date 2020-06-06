@@ -21,6 +21,7 @@ add_executable (
   "data/alphabet.c"
   "data/constants.c"
   "data/main.c"
+  "data/next_state.c"
   "data/prefix.c"
   "data/state.c"
   "main.c"

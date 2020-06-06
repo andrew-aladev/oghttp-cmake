@@ -9,34 +9,28 @@
 #include "main.h"
 
 const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH = @CMAKE_CONSTANTS_LENGTH@;
+const size_t                OGH_PROCESSOR_@NAME@_INITIAL_STATE    = OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
 
-const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE = OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
-
-const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH     = @CMAKE_ALPHABET_LENGTH@;
-const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH = OGH_MAX_BYTE + 1;
+const size_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH     = @CMAKE_ALPHABET_LENGTH@;
+const size_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH = OGH_MAX_BYTE + 1;
 
 const ogh_byte_t OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL = OGH_MAX_BYTE;
 
 #define SYMBOL_BY_BYTES_LENGTH OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH
 
 // clang-format off
-
 const ogh_byte_t OGH_PROCESSOR_@NAME@_SYMBOL_BY_BYTES[SYMBOL_BY_BYTES_LENGTH] = {
-  [0 ... SYMBOL_BY_BYTES_LENGTH - 1] = OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL,
+[0 ... SYMBOL_BY_BYTES_LENGTH - 1] = OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL,
 @CMAKE_SYMBOL_BY_BYTES@};
-
 // clang-format on
 
 #define NEXT_STATE_BY_LAST_SYMBOLS_LENGTH (@CMAKE_MAX_STATE@ + 1) * OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH
 
 // clang-format off
-
 const ogh_processor_@NAME_LOWER_CASE@_state_t OGH_PROCESSOR_@NAME@_NEXT_STATE_BY_LAST_SYMBOLS[NEXT_STATE_BY_LAST_SYMBOLS_LENGTH] = {
-  [0 ... NEXT_STATE_BY_LAST_SYMBOLS_LENGTH - 1] = OGH_PROCESSOR_@NAME@_INITIAL_STATE,
+[0 ... NEXT_STATE_BY_LAST_SYMBOLS_LENGTH - 1] = OGH_PROCESSOR_@NAME@_INITIAL_STATE,
 @CMAKE_NEXT_STATE_BY_LAST_SYMBOLS@};
-
 // clang-format on
 
 extern inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_byte_t byte);
-
-extern inline bool ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state);
+extern inline bool                  ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state);

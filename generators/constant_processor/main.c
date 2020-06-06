@@ -26,6 +26,7 @@ int main(int argc, const char** argv)
   }
 
   process_data(constant);
+
   free(constant);
 
   return 0;

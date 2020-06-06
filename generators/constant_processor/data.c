@@ -9,13 +9,17 @@
 
 #include "print.h"
 
-void process_data(const char* constant)
+static inline void print_constant_length(const char* constant)
+{
+  PRINT_LENGTH(strlen(constant));
+  PRINT_GLUE();
+}
+
+static inline void print_constant_bytes(const char* constant)
 {
   INITIALIZE_SPACERS(true);
 
-  size_t constant_length = strlen(constant);
-
-  for (size_t index = 0; index < constant_length; index++) {
+  for (size_t index = 0; index < strlen(constant); index++) {
     uint8_t byte = constant[index];
 
     PRINT_SPACER();
@@ -23,7 +27,10 @@ void process_data(const char* constant)
   }
 
   PRINT_GLUE();
+}
 
-  PRINT_LENGTH(constant_length);
-  PRINT_GLUE();
+void process_data(const char* constant)
+{
+  print_constant_length(constant);
+  print_constant_bytes(constant);
 }

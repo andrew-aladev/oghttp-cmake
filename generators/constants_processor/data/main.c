@@ -5,6 +5,7 @@
 
 #include "alphabet.h"
 #include "constants.h"
+#include "next_state.h"
 #include "prefix.h"
 #include "state.h"
 
@@ -15,19 +16,15 @@ int process_data(const char** constants, size_t constants_length)
     return 1;
   }
 
-  // Constants length.
   print_constants_length(constants_length);
 
-  // Constant states.
   if (print_constant_states(constants, constants_length) != 0) {
     return 2;
   }
 
-  // Max state.
   size_t max_state = get_max_state(constants_length, prefixes_length);
   print_max_state(max_state);
 
-  // Min state bits.
   if (print_min_state_bits(max_state) != 0) {
     return 3;
   }
@@ -36,18 +33,27 @@ int process_data(const char** constants, size_t constants_length)
   size_t   alphabet_length;
   uint8_t* symbol_by_bytes;
 
-  if (init_alphabet(constants, constants_length, &alphabet, &alphabet_length, &symbol_by_bytes) != 0) {
+  int result = init_alphabet(
+    constants, constants_length,
+    &alphabet, &alphabet_length, &symbol_by_bytes);
+
+  if (result != 0) {
     return 4;
   }
 
-  // Alphabet length.
   print_alphabet_length(alphabet_length);
-
-  // Symbol by bytes.
   print_symbol_by_bytes(alphabet, alphabet_length, symbol_by_bytes);
+
+  result = print_next_state_by_last_symbols(
+    constants, constants_length,
+    symbol_by_bytes, alphabet_length, max_state);
 
   free(alphabet);
   free(symbol_by_bytes);
+
+  if (result != 0) {
+    return 5;
+  }
 
   return 0;
 }

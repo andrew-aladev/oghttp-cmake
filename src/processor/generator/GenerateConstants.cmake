@@ -7,7 +7,7 @@ function (generate_constants NAME)
   include (GenerateConstantsProcessor)
   generate_constants_processor (${NAME} "${TARGET_PATH}/options.xml")
 
-  if (DEFINED CMAKE_CONSTANTS_BYTES)
+  if (DEFINED CMAKE_CONSTANTS_LENGTH)
     file (RELATIVE_PATH RELATIVE_SOURCE_PATH ${TARGET_PATH} ${SOURCE_PATH})
 
     configure_file ("${GENERATOR_PATH}/main.h.in" "${TARGET_PATH}/main.h")

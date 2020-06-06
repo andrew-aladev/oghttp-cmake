@@ -14,17 +14,24 @@
 #include "@RELATIVE_SOURCE_PATH@common.h"
 #include "@RELATIVE_SOURCE_PATH@log.h"
 
+typedef uint@CMAKE_MIN_STATE_BITS@_t ogh_processor_@NAME_LOWER_CASE@_state_t;
+
 extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+extern const size_t                OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
 
-extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
+#undef OGH_PROCESSOR_CONSTANT
+#define OGH_PROCESSOR_CONSTANT OGH_PROCESSOR_@NAME@_CONSTANT
 
-extern const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH;
-extern const uint16_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH;
+// clang-format off
+enum {
+@CMAKE_CONSTANT_STATES@};
+// clang-format on
+
+extern const size_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH;
+extern const size_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH;
 
 extern const ogh_byte_t OGH_PROCESSOR_@NAME@_UNDEFINED_SYMBOL;
 extern const ogh_byte_t OGH_PROCESSOR_@NAME@_SYMBOL_BY_BYTES[];
-
-typedef uint@CMAKE_MIN_STATE_BITS@_t ogh_processor_@NAME_LOWER_CASE@_state_t;
 
 extern const ogh_processor_@NAME_LOWER_CASE@_state_t OGH_PROCESSOR_@NAME@_NEXT_STATE_BY_LAST_SYMBOLS[];
 
