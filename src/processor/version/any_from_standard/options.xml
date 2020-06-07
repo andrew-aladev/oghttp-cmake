@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <bytes>
+    <group mode="include">
+      <range>
+        <from>0</from>
+        <to>9</to>
+      </range>
+      <byte>.</byte>
+    </group>
+    <minLength>3</minLength>
+    <maxLength>3</maxLength>
+  </bytes>
+</root>

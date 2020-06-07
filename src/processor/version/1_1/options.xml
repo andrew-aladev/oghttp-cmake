@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <constants>
+    <constant>0.9</constant>
+    <constant>1.0</constant>
+    <constant>1.1</constant>
+    <constant>1.2</constant>
+    <constant>1.3</constant>
+  </constants>
+</root>

@@ -1,4 +1,4 @@
-set (NAME "METHOD_0_9")
+set (NAME "VERSION_1_0")
 
 include (GenerateConstant)
 generate_constant (${NAME})

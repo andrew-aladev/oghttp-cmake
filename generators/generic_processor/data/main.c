@@ -2,7 +2,6 @@
 // Copyright (c) 2019 AUTHORS, MIT License.
 
 #include "data.h"
-
 #include "options.h"
 #include "print.h"
 

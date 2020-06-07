@@ -16,16 +16,19 @@
 
 typedef uint@CMAKE_MIN_STATE_BITS@_t ogh_processor_@NAME_LOWER_CASE@_state_t;
 
-extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
-extern const size_t                OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
-
 #undef OGH_PROCESSOR_CONSTANT
-#define OGH_PROCESSOR_CONSTANT OGH_PROCESSOR_@NAME@_CONSTANT
+
+// Constant id equals to its bytes hex values.
+// For example constant "ab" will have id "9798".
+#define OGH_PROCESSOR_CONSTANT(ID) OGH_PROCESSOR_@NAME@_CONSTANT_##ID
 
 // clang-format off
 enum {
 @CMAKE_CONSTANT_STATES@};
 // clang-format on
+
+extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
+extern const size_t                OGH_PROCESSOR_@NAME@_CONSTANTS_LENGTH;
 
 extern const size_t OGH_PROCESSOR_@NAME@_ALPHABET_LENGTH;
 extern const size_t OGH_PROCESSOR_@NAME@_ALPHABET_MAX_LENGTH;
