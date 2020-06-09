@@ -1,10 +1,8 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "options.h"
+#include "constants.h"
 
-#include <libxml/HTMLparser.h>
-#include <libxml/parser.h>
 #include <libxml/xpath.h>
 #include <string.h>
 
@@ -12,7 +10,7 @@
 
 #define CONSTANT_XPATH "//constant"
 
-static inline int read_constants(const htmlDocPtr document, char*** constants_ptr, size_t* constants_length_ptr)
+int read_constants(const htmlDocPtr document, char*** constants_ptr, size_t* constants_length_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
@@ -69,30 +67,6 @@ static inline int read_constants(const htmlDocPtr document, char*** constants_pt
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
-
-  return 0;
-}
-
-int read_options(const char* path, char*** constants_ptr, size_t* constants_length_ptr)
-{
-  xmlInitParser();
-  LIBXML_TEST_VERSION
-
-  const htmlDocPtr document = htmlParseFile(path, NULL);
-  if (document == NULL) {
-    PRINTF_ERROR("failed to parse HTML file, path: %s", path);
-    xmlCleanupParser();
-    return 1;
-  }
-
-  int result = read_constants(document, constants_ptr, constants_length_ptr);
-
-  xmlFreeDoc(document);
-  xmlCleanupParser();
-
-  if (result != 0) {
-    return 2;
-  }
 
   return 0;
 }

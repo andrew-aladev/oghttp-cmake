@@ -24,8 +24,9 @@ add_executable (
   "data/next_state.c"
   "data/prefix.c"
   "data/state.c"
+  "options/constants.c"
+  "options/main.c"
   "main.c"
-  "options.c"
 )
 target_link_libraries (
   "main"

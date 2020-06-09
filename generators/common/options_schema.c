@@ -9,7 +9,7 @@
 #include "macro.h"
 #include "print.h"
 
-#define SCHEMA_PATH PROCESSOR_PATH "/options.xsd"
+#define SCHEMA_PATH PROCESSOR_PATH "/options/main.xsd"
 
 static inline void print_error(void* UNUSED(context), const char* message, ...)
 {

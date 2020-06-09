@@ -1,10 +1,11 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
+#include "data/main.h"
+
 #include <stdlib.h>
 
-#include "data.h"
-#include "options.h"
+#include "options/main.h"
 #include "options_schema.h"
 #include "print.h"
 

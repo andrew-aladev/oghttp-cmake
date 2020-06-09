@@ -18,8 +18,9 @@ include_directories (
 add_executable (
   "main"
   "../common/options_schema.c"
+  "options/length.c"
+  "options/main.c"
   "main.c"
-  "options.c"
 )
 target_link_libraries (
   "main"

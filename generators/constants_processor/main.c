@@ -5,7 +5,7 @@
 
 #include <stdlib.h>
 
-#include "options.h"
+#include "options/main.h"
 #include "options_schema.h"
 #include "print.h"
 
