@@ -17,7 +17,7 @@ static inline int process_file(const char* file_path, const char* xpath, bool is
 
   const htmlDocPtr document = htmlParseFile(file_path, NULL);
   if (document == NULL) {
-    PRINT_ERROR("failed to parse HTML file");
+    PRINTF_ERROR("failed to parse HTML file, path: %s", file_path);
     xmlCleanupParser();
     return 1;
   }
@@ -32,7 +32,7 @@ static inline int process_file(const char* file_path, const char* xpath, bool is
 
   const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)xpath, xpath_context);
   if (xpath_object == NULL) {
-    PRINT_ERROR("failed to create xpath");
+    PRINTF_ERROR("failed to create xpath: %s", xpath);
     xmlXPathFreeContext(xpath_context);
     xmlFreeDoc(document);
     xmlCleanupParser();

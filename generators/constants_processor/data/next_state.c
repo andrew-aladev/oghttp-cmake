@@ -31,10 +31,11 @@ static inline int init_next_state_by_last_symbols(
 {
   // Each state has alphabet length of possible last symbols.
   size_t next_state_by_last_symbols_length = (max_state + 1) * alphabet_length;
+  size_t next_state_by_last_symbols_size   = next_state_by_last_symbols_length * sizeof(size_t);
 
-  size_t* next_state_by_last_symbols = malloc(next_state_by_last_symbols_length * sizeof(size_t));
+  size_t* next_state_by_last_symbols = malloc(next_state_by_last_symbols_size);
   if (next_state_by_last_symbols == NULL) {
-    PRINT_ERROR("failed to allocate memory for next state by last symbols");
+    PRINTF_ERROR("failed to allocate memory for next state by last symbols, size: %zu", next_state_by_last_symbols_size);
     return 1;
   }
 
@@ -67,7 +68,7 @@ static inline int init_next_state_by_last_symbols(
 
       if (!is_constant_state_exist) {
         if (global_state >= max_state) {
-          PRINT_ERROR("global state should be less than max state");
+          PRINTF_ERROR("global state should be less than max state, global state: %zu, max state: %zu", global_state, max_state);
           free(next_state_by_last_symbols);
           return 2;
         }
@@ -80,7 +81,7 @@ static inline int init_next_state_by_last_symbols(
   }
 
   if (global_state != max_state) {
-    PRINT_ERROR("global state is not equal to max state");
+    PRINTF_ERROR("global state is not equal to max state, global state: %zu, max state: %zu", global_state, max_state);
     free(next_state_by_last_symbols);
     return 3;
   }

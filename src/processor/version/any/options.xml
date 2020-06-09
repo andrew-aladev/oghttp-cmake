@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <bytes>
-    <group mode="include">
-      <range>
-        <!-- any byte -->
-        <from>0x00</from>
-        <to>0xff</to>
-      </range>
-    </group>
-    <group mode="exclude">
-      <!-- horizontal tabulation -->
-      <byte>0x09</byte>
-      <!-- line feed -->
-      <byte>0x0a</byte>
-      <!-- vertical tabulation -->
-      <byte>0x0b</byte>
-      <!-- form feed -->
-      <byte>0x0c</byte>
-      <!-- carriage return -->
-      <byte>0x0d</byte>
-      <!-- space -->
-      <byte>0x20</byte>
-    </group>
-    <minLength>1</minLength>
-    <maxLength>0xffff</maxLength>
-  </bytes>
+  <group mode="include">
+    <range>
+      <!-- any byte -->
+      <from>0x00</from>
+      <to>0xFF</to>
+    </range>
+  </group>
+  <group mode="exclude">
+    <!-- horizontal tabulation -->
+    <byte>0x09</byte>
+    <!-- line feed -->
+    <byte>0x0A</byte>
+    <!-- vertical tabulation -->
+    <byte>0x0B</byte>
+    <!-- form feed -->
+    <byte>0x0C</byte>
+    <!-- carriage return -->
+    <byte>0x0D</byte>
+    <!-- space -->
+    <byte>0x20</byte>
+  </group>
+  <min-length>1</min-length>
+  <max-length>0xFFFF</max-length>
 </root>

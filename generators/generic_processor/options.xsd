@@ -3,37 +3,31 @@
   <xs:element name="root">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="bytes">
+        <xs:element name="group" minOccurs="1" maxOccurs="unbounded">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="group" minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="range" minOccurs="0" maxOccurs="unbounded">
                 <xs:complexType>
                   <xs:sequence>
-                    <xs:element name="range" minOccurs="0" maxOccurs="unbounded">
-                      <xs:complexType>
-                        <xs:sequence>
-                          <xs:element name="from" type="xs:string" />
-                          <xs:element name="to" type="xs:string" />
-                        </xs:sequence>
-                      </xs:complexType>
-                    </xs:element>
-                    <xs:element name="byte" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+                    <xs:element name="from" type="xs:string" />
+                    <xs:element name="to" type="xs:string" />
                   </xs:sequence>
-                  <xs:attribute name="mode" use="required">
-                    <xs:simpleType>
-                      <xs:restriction base="xs:string">
-                        <xs:enumeration value="include" />
-                        <xs:enumeration value="exclude" />
-                      </xs:restriction>
-                    </xs:simpleType>
-                  </xs:attribute>
                 </xs:complexType>
               </xs:element>
-              <xs:element name="minLength" type="xs:string" />
-              <xs:element name="maxLength" type="xs:string" />
+              <xs:element name="byte" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
             </xs:sequence>
+            <xs:attribute name="mode" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="include" />
+                  <xs:enumeration value="exclude" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
           </xs:complexType>
         </xs:element>
+        <xs:element name="min-length" type="xs:string" />
+        <xs:element name="max-length" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -29,7 +29,7 @@ int print_constant_states(const char** constants, size_t constants_length)
 
     char* constant_macro = malloc(constant_macro_length);
     if (constant_macro == NULL) {
-      PRINT_ERROR("failed to allocate memory for constant macro");
+      PRINTF_ERROR("failed to allocate memory for constant macro, size: %zu", constant_macro_length);
       return 1;
     }
 

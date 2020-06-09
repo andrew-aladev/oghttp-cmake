@@ -22,28 +22,30 @@ static inline int read_constant(const htmlDocPtr document, char** constant_ptr)
 
   const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)CONSTANT_XPATH, xpath_context);
   if (xpath_object == NULL) {
-    PRINT_ERROR("failed to evaluate xpath");
+    PRINTF_ERROR("failed to evaluate xpath: %s", CONSTANT_XPATH);
     xmlXPathFreeContext(xpath_context);
     return 2;
   }
 
   const xmlNodeSetPtr nodes = xpath_object->nodesetval;
   if (nodes->nodeNr != 1) {
-    PRINT_ERROR("failed to find single constant value");
+    PRINTF_ERROR("failed to find single constant value, xpath: %s", CONSTANT_XPATH);
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
     return 3;
   }
 
-  char* constant = strdup((const char*)xmlNodeGetContent(nodes->nodeTab[0]));
-  if (constant == NULL) {
-    PRINT_ERROR("failed to duplicate constant value");
+  const char* constant = (const char*)xmlNodeGetContent(nodes->nodeTab[0]);
+
+  char* constant_duplicate = strdup(constant);
+  if (constant_duplicate == NULL) {
+    PRINTF_ERROR("failed to duplicate constant value: %s", constant);
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
     return 4;
   }
 
-  *constant_ptr = constant;
+  *constant_ptr = constant_duplicate;
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
@@ -58,7 +60,7 @@ int read_options(const char* path, char** constant_ptr)
 
   const htmlDocPtr document = htmlParseFile(path, NULL);
   if (document == NULL) {
-    PRINT_ERROR("failed to parse HTML file");
+    PRINTF_ERROR("failed to parse HTML file, path: %s", path);
     xmlCleanupParser();
     return 1;
   }

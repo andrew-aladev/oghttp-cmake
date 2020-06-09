@@ -22,33 +22,36 @@ static inline int read_constants(const htmlDocPtr document, char*** constants_pt
 
   const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)CONSTANT_XPATH, xpath_context);
   if (xpath_object == NULL) {
-    PRINT_ERROR("failed to evaluate xpath");
+    PRINTF_ERROR("failed to evaluate xpath: %s", CONSTANT_XPATH);
     xmlXPathFreeContext(xpath_context);
     return 2;
   }
 
   const xmlNodeSetPtr nodes = xpath_object->nodesetval;
   if (nodes->nodeNr <= 0) {
-    PRINT_ERROR("failed to find constant values");
+    PRINTF_ERROR("failed to find constant values, xpath: %s", CONSTANT_XPATH);
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
     return 3;
   }
 
   size_t constants_length = nodes->nodeNr;
+  size_t constants_size   = constants_length * sizeof(char*);
 
-  char** constants = malloc(sizeof(char*) * constants_length);
+  char** constants = malloc(constants_size);
   if (constants == NULL) {
-    PRINT_ERROR("failed to allocate memory for constants");
+    PRINTF_ERROR("failed to allocate memory for constants, size: %zu", constants_size);
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
     return 4;
   }
 
   for (size_t index = 0; index < constants_length; index++) {
-    char* constant = strdup((const char*)xmlNodeGetContent(nodes->nodeTab[index]));
-    if (constant == NULL) {
-      PRINT_ERROR("failed to duplicate constant value");
+    const char* constant = (const char*)xmlNodeGetContent(nodes->nodeTab[index]);
+
+    char* constant_duplicate = strdup(constant);
+    if (constant_duplicate == NULL) {
+      PRINTF_ERROR("failed to duplicate constant value: %s", constant);
       for (size_t jndex = 0; jndex < index; jndex++) {
         free(constants[jndex]);
       }
@@ -58,7 +61,7 @@ static inline int read_constants(const htmlDocPtr document, char*** constants_pt
       return 5;
     }
 
-    constants[index] = constant;
+    constants[index] = constant_duplicate;
   }
 
   *constants_ptr        = constants;
@@ -77,7 +80,7 @@ int read_options(const char* path, char*** constants_ptr, size_t* constants_leng
 
   const htmlDocPtr document = htmlParseFile(path, NULL);
   if (document == NULL) {
-    PRINT_ERROR("failed to parse HTML file");
+    PRINTF_ERROR("failed to parse HTML file, path: %s", path);
     xmlCleanupParser();
     return 1;
   }

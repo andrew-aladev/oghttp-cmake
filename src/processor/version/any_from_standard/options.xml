@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <bytes>
-    <group mode="include">
-      <range>
-        <from>0</from>
-        <to>9</to>
-      </range>
-      <byte>.</byte>
-    </group>
-    <minLength>3</minLength>
-    <maxLength>3</maxLength>
-  </bytes>
+  <group mode="include">
+    <range>
+      <from>0</from>
+      <to>9</to>
+    </range>
+    <byte>.</byte>
+  </group>
+  <min-length>3</min-length>
+  <max-length>3</max-length>
 </root>

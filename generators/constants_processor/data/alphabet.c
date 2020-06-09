@@ -37,7 +37,7 @@ int init_alphabet(
 {
   uint8_t* alphabet = malloc(ALPHABET_MAX_LENGTH);
   if (alphabet == NULL) {
-    PRINT_ERROR("failed to allocate memory for alphabet");
+    PRINTF_ERROR("failed to allocate memory for alphabet, size: %u", ALPHABET_MAX_LENGTH);
     return 1;
   }
 
@@ -45,7 +45,7 @@ int init_alphabet(
 
   uint8_t* symbol_by_bytes = malloc(SYMBOL_BY_BYTES_LENGTH);
   if (symbol_by_bytes == NULL) {
-    PRINT_ERROR("failed to allocate memory for symbol by bytes");
+    PRINTF_ERROR("failed to allocate memory for symbol by bytes, size: %u", SYMBOL_BY_BYTES_LENGTH);
     free(alphabet);
     return 2;
   }

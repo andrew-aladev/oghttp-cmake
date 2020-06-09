@@ -36,7 +36,7 @@ int print_min_state_bits(size_t max_state)
     min_state_bits = "64";
   }
   else {
-    PRINT_ERROR("max state is too big");
+    PRINTF_ERROR("max state is too big, value: %zu", max_state);
     return 1;
   }
 

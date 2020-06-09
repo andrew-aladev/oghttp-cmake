@@ -57,9 +57,11 @@ int init_prefixes_length(const char** constants, size_t constants_length, size_t
     max_prefixes_length += strlen(constants[index]) - 1;
   }
 
-  prefix_t* prefixes = malloc(max_prefixes_length * sizeof(prefix_t));
+  size_t max_prefixes_size = max_prefixes_length * sizeof(prefix_t);
+
+  prefix_t* prefixes = malloc(max_prefixes_size);
   if (prefixes == NULL) {
-    PRINT_ERROR("failed to allocate memory for prefixes");
+    PRINTF_ERROR("failed to allocate memory for prefixes, size: %zu", max_prefixes_size);
     return 1;
   }
 
