@@ -4,9 +4,9 @@
 #if !defined(OPTIONS_LENGTH_H)
 #define OPTIONS_LENGTH_H
 
-#include <libxml/HTMLparser.h>
+#include <libxml/parser.h>
 #include <stdlib.h>
 
-int read_length(const htmlDocPtr document, const char* xpath, size_t* length_ptr);
+int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr);
 
 #endif // OPTIONS_LENGTH_H

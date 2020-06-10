@@ -10,7 +10,7 @@
 
 #define CONSTANT_XPATH "//constant"
 
-int read_constants(const htmlDocPtr document, char*** constants_ptr, size_t* constants_length_ptr)
+int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* constants_length_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {

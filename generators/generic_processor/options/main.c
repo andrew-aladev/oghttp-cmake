@@ -3,7 +3,6 @@
 
 #include "main.h"
 
-#include <libxml/parser.h>
 #include <string.h>
 
 #include "length.h"
@@ -12,7 +11,7 @@
 #define MIN_LENGTH_XPATH "//min-length"
 #define MAX_LENGTH_XPATH "//max-length"
 
-static inline int read_data(const htmlDocPtr document, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
+static inline int read_data(const xmlDocPtr document, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
 {
   size_t min_length;
   if (read_length(document, MIN_LENGTH_XPATH, &min_length) != 0) {
@@ -37,9 +36,9 @@ int read_options(const char* path, bool* allowed_bytes, size_t* min_length_ptr, 
   xmlInitParser();
   LIBXML_TEST_VERSION
 
-  const htmlDocPtr document = htmlParseFile(path, NULL);
+  const xmlDocPtr document = xmlParseFile(path);
   if (document == NULL) {
-    PRINTF_ERROR("failed to parse HTML file, path: %s", path);
+    PRINTF_ERROR("failed to parse XML file, path: %s", path);
     xmlCleanupParser();
     return 1;
   }

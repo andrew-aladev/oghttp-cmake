@@ -22,7 +22,7 @@ static inline int parse_length(const char* value, size_t* length_ptr)
   return 1;
 }
 
-int read_length(const htmlDocPtr document, const char* xpath, size_t* length_ptr)
+int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {

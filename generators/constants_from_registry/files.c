@@ -3,7 +3,6 @@
 
 #include "files.h"
 
-#include <libxml/HTMLparser.h>
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
 
@@ -15,9 +14,9 @@ static inline int process_file(const char* file_path, const char* xpath, bool is
   xmlInitParser();
   LIBXML_TEST_VERSION
 
-  const htmlDocPtr document = htmlParseFile(file_path, NULL);
+  const xmlDocPtr document = xmlParseFile(file_path);
   if (document == NULL) {
-    PRINTF_ERROR("failed to parse HTML file, path: %s", file_path);
+    PRINTF_ERROR("failed to parse XML file, path: %s", file_path);
     xmlCleanupParser();
     return 1;
   }

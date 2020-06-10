@@ -3,7 +3,6 @@
 
 #include "main.h"
 
-#include <libxml/parser.h>
 #include <string.h>
 
 #include "constants.h"
@@ -14,9 +13,9 @@ int read_options(const char* path, char*** constants_ptr, size_t* constants_leng
   xmlInitParser();
   LIBXML_TEST_VERSION
 
-  const htmlDocPtr document = htmlParseFile(path, NULL);
+  const xmlDocPtr document = xmlParseFile(path);
   if (document == NULL) {
-    PRINTF_ERROR("failed to parse HTML file, path: %s", path);
+    PRINTF_ERROR("failed to parse XML file, path: %s", path);
     xmlCleanupParser();
     return 1;
   }

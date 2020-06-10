@@ -4,8 +4,8 @@
 #if !defined(OPTIONS_CONSTANT_H)
 #define OPTIONS_CONSTANT_H
 
-#include <libxml/HTMLparser.h>
+#include <libxml/parser.h>
 
-int read_constant(const htmlDocPtr document, char** constant_ptr);
+int read_constant(const xmlDocPtr document, char** constant_ptr);
 
 #endif // OPTIONS_CONSTANT_H
