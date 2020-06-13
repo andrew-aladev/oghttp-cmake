@@ -3,8 +3,7 @@
 
 #include "main.h"
 
-#include <string.h>
-
+#include "groups.h"
 #include "length.h"
 #include "print.h"
 
@@ -13,17 +12,19 @@
 
 static inline int read_data(const xmlDocPtr document, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
 {
+  if (read_groups(document, allowed_bytes) != 0) {
+    return 1;
+  }
+
   size_t min_length;
   if (read_length(document, MIN_LENGTH_XPATH, &min_length) != 0) {
-    return 1;
+    return 2;
   }
 
   size_t max_length;
   if (read_length(document, MAX_LENGTH_XPATH, &max_length) != 0) {
-    return 2;
+    return 3;
   }
-
-  allowed_bytes[0] = 0;
 
   *min_length_ptr = min_length;
   *max_length_ptr = max_length;

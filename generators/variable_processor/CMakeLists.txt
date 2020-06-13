@@ -18,6 +18,7 @@ include_directories (
 add_executable (
   "main"
   "../common/options_schema.c"
+  "options/groups.c"
   "options/length.c"
   "options/main.c"
   "main.c"
