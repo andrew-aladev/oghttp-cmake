@@ -1,11 +1,11 @@
 set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-function (generate_generic NAME)
-  set (GENERATOR_PATH "${CURRENT_LIST_DIR}/generic")
+function (generate_variable NAME)
+  set (GENERATOR_PATH "${CURRENT_LIST_DIR}/variable")
   set (TARGET_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-  include (GenerateGenericProcessor)
-  generate_generic_processor (${NAME} "${TARGET_PATH}/options.xml")
+  include (GenerateVariableProcessor)
+  generate_variable_processor (${NAME} "${TARGET_PATH}/options.xml")
 
   if (DEFINED CMAKE_ALLOWED_BYTES)
     file (RELATIVE_PATH RELATIVE_SOURCE_PATH ${TARGET_PATH} ${SOURCE_PATH})

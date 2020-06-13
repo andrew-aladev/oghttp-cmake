@@ -1,4 +1,4 @@
 set (NAME "VERSION_ANY")
 
-include (GenerateGeneric)
-generate_generic (${NAME})
+include (GenerateVariable)
+generate_variable (${NAME})

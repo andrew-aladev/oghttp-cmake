@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.9)
-project ("cmake_generate_generic_processor" "C")
+project ("cmake_generate_variable_processor" "C")
 
 set (CMAKE_LIBXML2_INCLUDE_DIRS "" CACHE STRING "LibXML2 include directories")
 set (CMAKE_LIBXML2_LIBRARIES    "" CACHE STRING "LibXML2 libraries")

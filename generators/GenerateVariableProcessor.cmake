@@ -1,18 +1,18 @@
 set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-function (generate_generic_processor NAME OPTIONS_PATH)
+function (generate_variable_processor NAME OPTIONS_PATH)
   string (TOLOWER ${NAME} NAME_LOWER_CASE)
   set (NAME_LOWER_CASE ${NAME_LOWER_CASE} PARENT_SCOPE)
 
-  set (MESSAGE_PREFIX "${NAME_LOWER_CASE} generic processor")
+  set (MESSAGE_PREFIX "${NAME_LOWER_CASE} variable processor")
 
   set (OUTPUT_ALLOWED_BYTES "CMAKE_ALLOWED_BYTES")
   set (OUTPUT_MIN_LENGTH    "CMAKE_MIN_LENGTH")
   set (OUTPUT_MAX_LENGTH    "CMAKE_MAX_LENGTH")
 
-  set (NAME "cmake_generator_generic_processor")
-  set (SOURCE_DIR "${CURRENT_LIST_DIR}/generic_processor")
-  set (BINARY_DIR "${PROJECT_BINARY_DIR}/generator_generic_processor")
+  set (NAME "cmake_generator_variable_processor")
+  set (SOURCE_DIR "${CURRENT_LIST_DIR}/variable_processor")
+  set (BINARY_DIR "${PROJECT_BINARY_DIR}/generator_variable_processor")
 
   find_package (LibXml2)
 

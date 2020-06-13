@@ -1,12 +1,14 @@
 Please read "constants_processor" and "constant_processor" docs first.
 
-HTTP requires generic data processing.
+HTTP requires variable data processing.
 Token values consist of variable amount of bytes.
 The most basic example is "Host: example.com" token.
 
 -----
 
-We won't validate generic data, we will just define allowed alphabet and min/max length of data.
+We won't validate variable data.
+Data should only be safe from protocol perspective.
+So we will just define allowed alphabet and min/max length of data.
 
 We need only to maintain boolean match for allowed bytes.
 This match can be named as "allowed_bytes".
@@ -38,11 +40,11 @@ For example we want to process hosts:
 We can assign "0" state for empty string (initial state), "1" for "e", "2" for "x", etc.
 "max_state" will be "max_length".
 
-We need to use "size_t" type to handle generic data length, so type of processor state will be "size_t".
+We need to use "size_t" type to handle variable data length, so type of processor state will be "size_t".
 
 -----
 
-We can add two modes for generic generator: inclusive and exclusive.
+We can add two modes for variable generator: inclusive and exclusive.
 
 Inclusive mode will create: byte ranges + separate bytes = allowed bytes.
 This mode is useful for strict declarations.
