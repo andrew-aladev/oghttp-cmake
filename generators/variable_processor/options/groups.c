@@ -5,13 +5,35 @@
 
 #include <libxml/xpath.h>
 #include <stdint.h>
+#include <string.h>
 
 #include "print.h"
 
 #define GROUP_XPATH "//group"
 
-static inline int read_group(const xmlNodePtr group, bool* allowed_bytes_result)
+enum {
+  GROUP_MODE_INCLUDE,
+  GROUP_MODE_EXCLUDE
+};
+typedef uint8_t group_mode_t;
+
+static inline int read_group_mode(const xmlNodePtr group, group_mode_t* group_mode_ptr)
 {
+  xmlChar* value = xmlGetProp(group, (const xmlChar*)"mode");
+  if (value == NULL) {
+    PRINT_ERROR("failed to read group mode property");
+    return 1;
+  }
+
+  if (strcmp((const char*)value, "include") == 0) {
+    *group_mode_ptr = GROUP_MODE_INCLUDE;
+  }
+  else {
+    *group_mode_ptr = GROUP_MODE_EXCLUDE;
+  }
+
+  xmlFree(value);
+
   return 0;
 }
 
@@ -42,7 +64,10 @@ int read_groups(const xmlDocPtr document, bool* allowed_bytes_result)
   size_t groups_length = nodes->nodeNr;
 
   for (size_t index = 0; index < groups_length; index++) {
-    if (read_group(nodes->nodeTab[index], allowed_bytes) != 0) {
+    const xmlNodePtr group = nodes->nodeTab[index];
+
+    group_mode_t group_mode;
+    if (read_group_mode(group, &group_mode) != 0) {
       xmlXPathFreeObject(xpath_object);
       xmlXPathFreeContext(xpath_context);
       return 4;
