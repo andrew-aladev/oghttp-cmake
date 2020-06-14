@@ -4,17 +4,18 @@
 #include "groups.h"
 
 #include <libxml/xpath.h>
+#include <stdint.h>
 
 #include "print.h"
 
 #define GROUP_XPATH "//group"
 
-static inline int read_group(const xmlNodePtr group, bool* allowed_bytes)
+static inline int read_group(const xmlNodePtr group, bool* allowed_bytes_result)
 {
   return 0;
 }
 
-int read_groups(const xmlDocPtr document, bool* allowed_bytes)
+int read_groups(const xmlDocPtr document, bool* allowed_bytes_result)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
@@ -37,6 +38,7 @@ int read_groups(const xmlDocPtr document, bool* allowed_bytes)
     return 3;
   }
 
+  bool   allowed_bytes[UINT8_MAX];
   size_t groups_length = nodes->nodeNr;
 
   for (size_t index = 0; index < groups_length; index++) {
@@ -49,6 +51,10 @@ int read_groups(const xmlDocPtr document, bool* allowed_bytes)
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
+
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    allowed_bytes_result[index] = allowed_bytes[index];
+  }
 
   return 0;
 }

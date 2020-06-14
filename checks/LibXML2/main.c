@@ -47,10 +47,11 @@ int main()
   assert(attribute_value != NULL);
   assert(strcmp(attribute_value, ATTRIBUTE_VALUE) == 0);
 
-  const char* text = (const char*)xmlNodeGetContent(node);
+  xmlChar* text = xmlNodeGetContent(node);
   assert(text != NULL);
-  assert(strcmp(text, TEXT) == 0);
+  assert(strcmp((const char*)text, TEXT) == 0);
 
+  xmlFree(text);
   xmlXPathFreeObject(xpath);
   xmlXPathFreeContext(xpath_context);
   xmlFreeDoc(document);

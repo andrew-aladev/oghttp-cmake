@@ -45,11 +45,12 @@ int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr)
     return 3;
   }
 
-  const char* value = (const char*)xmlNodeGetContent(nodes->nodeTab[0]);
-  size_t      length;
+  xmlChar* value = xmlNodeGetContent(nodes->nodeTab[0]);
+  size_t   length;
 
-  int result = parse_length(value, &length);
+  int result = parse_length((const char*)value, &length);
 
+  xmlFree(value);
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
 

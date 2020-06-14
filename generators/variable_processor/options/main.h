@@ -7,6 +7,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int read_options(const char* path, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr);
+int read_options(const char* path, bool* allowed_bytes_result, size_t* min_length_ptr, size_t* max_length_ptr);
 
 #endif // OPTIONS_MAIN_H

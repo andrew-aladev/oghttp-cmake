@@ -45,11 +45,9 @@ int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* cons
   }
 
   for (size_t index = 0; index < constants_length; index++) {
-    const char* constant = (const char*)xmlNodeGetContent(nodes->nodeTab[index]);
-
-    char* constant_duplicate = strdup(constant);
-    if (constant_duplicate == NULL) {
-      PRINTF_ERROR("failed to duplicate constant value: %s", constant);
+    xmlChar* constant = xmlNodeGetContent(nodes->nodeTab[index]);
+    if (constant == NULL) {
+      PRINT_ERROR("failed to get constant value");
       for (size_t jndex = 0; jndex < index; jndex++) {
         free(constants[jndex]);
       }
@@ -59,14 +57,29 @@ int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* cons
       return 5;
     }
 
+    char* constant_duplicate = strdup((const char*)constant);
+    if (constant_duplicate == NULL) {
+      PRINTF_ERROR("failed to duplicate constant value: %s", (const char*)constant);
+      xmlFree(constant);
+      for (size_t jndex = 0; jndex < index; jndex++) {
+        free(constants[jndex]);
+      }
+      free(constants);
+      xmlXPathFreeObject(xpath_object);
+      xmlXPathFreeContext(xpath_context);
+      return 6;
+    }
+
+    xmlFree(constant);
+
     constants[index] = constant_duplicate;
   }
 
-  *constants_ptr        = constants;
-  *constants_length_ptr = constants_length;
-
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
+
+  *constants_ptr        = constants;
+  *constants_length_ptr = constants_length;
 
   return 0;
 }

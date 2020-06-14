@@ -33,20 +33,28 @@ int read_constant(const xmlDocPtr document, char** constant_ptr)
     return 3;
   }
 
-  const char* constant = (const char*)xmlNodeGetContent(nodes->nodeTab[0]);
-
-  char* constant_duplicate = strdup(constant);
-  if (constant_duplicate == NULL) {
-    PRINTF_ERROR("failed to duplicate constant value: %s", constant);
+  xmlChar* constant = xmlNodeGetContent(nodes->nodeTab[0]);
+  if (constant == NULL) {
+    PRINT_ERROR("failed to get constant value");
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
     return 4;
   }
 
-  *constant_ptr = constant_duplicate;
+  char* constant_duplicate = strdup((const char*)constant);
+  if (constant_duplicate == NULL) {
+    PRINTF_ERROR("failed to duplicate constant value: %s", (const char*)constant);
+    xmlFree(constant);
+    xmlXPathFreeObject(xpath_object);
+    xmlXPathFreeContext(xpath_context);
+    return 5;
+  }
 
+  xmlFree(constant);
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
+
+  *constant_ptr = constant_duplicate;
 
   return 0;
 }

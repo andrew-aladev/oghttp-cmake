@@ -3,6 +3,8 @@
 
 #include "main.h"
 
+#include <stdint.h>
+
 #include "groups.h"
 #include "length.h"
 #include "print.h"
@@ -10,8 +12,9 @@
 #define MIN_LENGTH_XPATH "//min-length"
 #define MAX_LENGTH_XPATH "//max-length"
 
-static inline int read_data(const xmlDocPtr document, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
+static inline int read_data(const xmlDocPtr document, bool* allowed_bytes_result, size_t* min_length_ptr, size_t* max_length_ptr)
 {
+  bool allowed_bytes[UINT8_MAX];
   if (read_groups(document, allowed_bytes) != 0) {
     return 1;
   }
@@ -24,6 +27,10 @@ static inline int read_data(const xmlDocPtr document, bool* allowed_bytes, size_
   size_t max_length;
   if (read_length(document, MAX_LENGTH_XPATH, &max_length) != 0) {
     return 3;
+  }
+
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    allowed_bytes_result[index] = allowed_bytes[index];
   }
 
   *min_length_ptr = min_length;
