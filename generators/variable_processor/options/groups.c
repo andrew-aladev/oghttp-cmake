@@ -25,14 +25,59 @@ static inline int read_group_mode(const xmlNodePtr group, group_mode_t* group_mo
     return 1;
   }
 
-  if (strcmp((const char*)value, "include") == 0) {
+  int result = strcmp((const char*)value, "include");
+
+  xmlFree(value);
+
+  if (result == 0) {
     *group_mode_ptr = GROUP_MODE_INCLUDE;
   }
   else {
     *group_mode_ptr = GROUP_MODE_EXCLUDE;
   }
 
-  xmlFree(value);
+  return 0;
+}
+
+static inline int read_group_datas(const xmlNodeSetPtr nodes, bool* allowed_bytes_result)
+{
+  bool allowed_bytes[UINT8_MAX];
+
+  // All bytes disallowed by default.
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    allowed_bytes[index] = false;
+  }
+
+  size_t groups_length = nodes->nodeNr;
+
+  for (size_t index = 0; index < groups_length; index++) {
+    const xmlNodePtr group = nodes->nodeTab[index];
+
+    group_mode_t group_mode;
+    if (read_group_mode(group, &group_mode) != 0) {
+      return 1;
+    }
+
+    bool group_bytes[UINT8_MAX];
+    // if (read_group_bytes(group, &group_bytes) != 0) {
+    //   return 2;
+    // }
+
+    if (index == 0 && group_mode == GROUP_MODE_EXCLUDE) {
+      PRINT_ERROR("first group mode shouldn't be \"exclude\"");
+      return 3;
+    }
+
+    for (size_t jndex = 0; jndex < UINT8_MAX; jndex++) {
+      if (group_bytes[jndex]) {
+        allowed_bytes[jndex] = (group_mode == GROUP_MODE_INCLUDE);
+      }
+    }
+  }
+
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    allowed_bytes_result[index] = allowed_bytes[index];
+  }
 
   return 0;
 }
@@ -60,22 +105,15 @@ int read_groups(const xmlDocPtr document, bool* allowed_bytes_result)
     return 3;
   }
 
-  bool   allowed_bytes[UINT8_MAX];
-  size_t groups_length = nodes->nodeNr;
-
-  for (size_t index = 0; index < groups_length; index++) {
-    const xmlNodePtr group = nodes->nodeTab[index];
-
-    group_mode_t group_mode;
-    if (read_group_mode(group, &group_mode) != 0) {
-      xmlXPathFreeObject(xpath_object);
-      xmlXPathFreeContext(xpath_context);
-      return 4;
-    }
-  }
+  bool allowed_bytes[UINT8_MAX];
+  int  result = read_group_datas(nodes, allowed_bytes);
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
+
+  if (result != 0) {
+    return 4;
+  }
 
   for (size_t index = 0; index < UINT8_MAX; index++) {
     allowed_bytes_result[index] = allowed_bytes[index];

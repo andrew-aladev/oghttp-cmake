@@ -8,18 +8,28 @@
 
 #include "print.h"
 
-static inline int parse_length(const char* value, size_t* length_ptr)
+static inline int read_length_value(const xmlNodePtr node, size_t* length_ptr)
 {
-  if (sscanf(value, "%zu", length_ptr) == 1) {
+  xmlChar* value = xmlNodeGetContent(node);
+  if (value == NULL) {
+    PRINT_ERROR("failed to read length value");
+    return 1;
+  }
+
+  if (sscanf((const char*)value, "%zu", length_ptr) == 1) {
+    xmlFree(value);
     return 0;
   }
 
-  if (sscanf(value, "0x%zx", length_ptr) == 1) {
+  if (sscanf((const char*)value, "0x%zx", length_ptr) == 1) {
+    xmlFree(value);
     return 0;
   }
 
-  PRINTF_ERROR("failed to parse length, value: %s", value);
-  return 1;
+  PRINTF_ERROR("failed to read length, value: %s", (const char*)value);
+  xmlFree(value);
+
+  return 2;
 }
 
 int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr)
@@ -45,12 +55,9 @@ int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr)
     return 3;
   }
 
-  xmlChar* value = xmlNodeGetContent(nodes->nodeTab[0]);
-  size_t   length;
+  size_t length;
+  int    result = read_length_value(nodes->nodeTab[0], &length);
 
-  int result = parse_length((const char*)value, &length);
-
-  xmlFree(value);
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
 

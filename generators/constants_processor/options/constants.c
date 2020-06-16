@@ -32,6 +32,36 @@ static inline int read_constant_value(const xmlNodePtr node, char** constant_ptr
   return 0;
 }
 
+static inline int read_constant_values(const xmlNodeSetPtr nodes, char*** constants_ptr, size_t* constants_length_ptr)
+{
+  size_t constants_length = nodes->nodeNr;
+  size_t constants_size   = constants_length * sizeof(char*);
+
+  char** constants = malloc(constants_size);
+  if (constants == NULL) {
+    PRINTF_ERROR("failed to allocate memory for constants, size: %zu", constants_size);
+    return 1;
+  }
+
+  for (size_t index = 0; index < constants_length; index++) {
+    char* constant;
+    if (read_constant_value(nodes->nodeTab[index], &constant) != 0) {
+      for (size_t jndex = 0; jndex < index; jndex++) {
+        free(constants[jndex]);
+      }
+      free(constants);
+      return 2;
+    }
+
+    constants[index] = constant;
+  }
+
+  *constants_ptr        = constants;
+  *constants_length_ptr = constants_length;
+
+  return 0;
+}
+
 int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* constants_length_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
@@ -55,34 +85,16 @@ int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* cons
     return 3;
   }
 
-  size_t constants_length = nodes->nodeNr;
-  size_t constants_size   = constants_length * sizeof(char*);
-
-  char** constants = malloc(constants_size);
-  if (constants == NULL) {
-    PRINTF_ERROR("failed to allocate memory for constants, size: %zu", constants_size);
-    xmlXPathFreeObject(xpath_object);
-    xmlXPathFreeContext(xpath_context);
-    return 4;
-  }
-
-  for (size_t index = 0; index < constants_length; index++) {
-    char* constant;
-    if (read_constant_value(nodes->nodeTab[index], &constant) != 0) {
-      for (size_t jndex = 0; jndex < index; jndex++) {
-        free(constants[jndex]);
-      }
-      free(constants);
-      xmlXPathFreeObject(xpath_object);
-      xmlXPathFreeContext(xpath_context);
-      return 5;
-    }
-
-    constants[index] = constant;
-  }
+  char** constants;
+  size_t constants_length;
+  int    result = read_constant_values(nodes, &constants, &constants_length);
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
+
+  if (result != 0) {
+    return 4;
+  }
 
   *constants_ptr        = constants;
   *constants_length_ptr = constants_length;
