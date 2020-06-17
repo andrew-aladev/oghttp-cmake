@@ -1,43 +1,15 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "groups.h"
+#include "main.h"
 
 #include <libxml/xpath.h>
-#include <stdint.h>
-#include <string.h>
 
+#include "mode.h"
 #include "print.h"
+#include "single_bytes.h"
 
 #define GROUP_XPATH "//group"
-
-enum {
-  GROUP_MODE_INCLUDE,
-  GROUP_MODE_EXCLUDE
-};
-typedef uint8_t group_mode_t;
-
-static inline int read_group_mode(const xmlNodePtr group, group_mode_t* group_mode_ptr)
-{
-  xmlChar* value = xmlGetProp(group, (const xmlChar*)"mode");
-  if (value == NULL) {
-    PRINT_ERROR("failed to read group mode property");
-    return 1;
-  }
-
-  int result = strcmp((const char*)value, "include");
-
-  xmlFree(value);
-
-  if (result == 0) {
-    *group_mode_ptr = GROUP_MODE_INCLUDE;
-  }
-  else {
-    *group_mode_ptr = GROUP_MODE_EXCLUDE;
-  }
-
-  return 0;
-}
 
 static inline int read_group_datas(const xmlNodeSetPtr nodes, bool* allowed_bytes_result)
 {
@@ -58,13 +30,13 @@ static inline int read_group_datas(const xmlNodeSetPtr nodes, bool* allowed_byte
       return 1;
     }
 
-    bool group_bytes[UINT8_MAX];
-    // if (read_group_bytes(group, &group_bytes) != 0) {
-    //   return 2;
-    // }
-
     if (index == 0 && group_mode == GROUP_MODE_EXCLUDE) {
       PRINT_ERROR("first group mode shouldn't be \"exclude\"");
+      return 2;
+    }
+
+    bool group_bytes[UINT8_MAX];
+    if (read_group_single_bytes(group, group_bytes) != 0) {
       return 3;
     }
 
