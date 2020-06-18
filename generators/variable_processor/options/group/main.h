@@ -7,6 +7,6 @@
 #include <libxml/parser.h>
 #include <stdbool.h>
 
-int read_groups(const xmlDocPtr document, bool* allowed_bytes_result);
+int read_groups(const xmlDocPtr document, bool* allowed_bytes);
 
 #endif // OPTIONS_GROUP_MAIN_H

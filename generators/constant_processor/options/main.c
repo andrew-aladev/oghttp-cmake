@@ -16,7 +16,9 @@ int read_options(const char* path, char** constant_ptr)
   const xmlDocPtr document = xmlParseFile(path);
   if (document == NULL) {
     PRINTF_ERROR("failed to parse XML file, path: %s", path);
+
     xmlCleanupParser();
+
     return 1;
   }
 

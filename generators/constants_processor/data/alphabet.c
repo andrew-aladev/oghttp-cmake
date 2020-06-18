@@ -46,7 +46,9 @@ int init_alphabet(
   uint8_t* symbol_by_bytes = malloc(SYMBOL_BY_BYTES_LENGTH);
   if (symbol_by_bytes == NULL) {
     PRINTF_ERROR("failed to allocate memory for symbol by bytes, size: %u", SYMBOL_BY_BYTES_LENGTH);
+
     free(alphabet);
+
     return 2;
   }
 

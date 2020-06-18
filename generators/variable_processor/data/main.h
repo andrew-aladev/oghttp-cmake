@@ -1,9 +1,12 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#if !defined(DATA_H)
-#define DATA_H
+#if !defined(DATA_MAIN_H)
+#define DATA_MAIN_H
 
-void print_data();
+#include <stdbool.h>
+#include <stdlib.h>
 
-#endif // DATA_H
+int process_data(const bool* allowed_bytes, size_t min_length, size_t max_length);
+
+#endif // DATA_MAIN_H

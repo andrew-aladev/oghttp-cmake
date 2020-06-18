@@ -7,6 +7,6 @@
 #include <libxml/parser.h>
 #include <stdbool.h>
 
-int read_group_single_bytes(const xmlNodePtr group, bool* group_bytes_result);
+int read_group_single_bytes(const xmlDocPtr document, const xmlNodePtr group, bool* single_bytes);
 
 #endif // OPTIONS_GROUP_SINGLE_BYTES_H

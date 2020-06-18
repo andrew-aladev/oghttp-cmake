@@ -7,24 +7,39 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "byte.h"
 #include "print.h"
 
 #define SINGLE_BYTE_XPATH ".//byte"
 
-static inline int read_group_single_byte_values(const xmlNodeSetPtr nodes, bool* group_bytes)
+static inline int read_single_bytes(const xmlNodeSetPtr nodes, bool* single_bytes_result)
 {
-  xmlChar* value = xmlNodeGetContent(node);
-  if (value == NULL) {
-    PRINT_ERROR("failed to read byte value");
-    return 1;
+  bool single_bytes[UINT8_MAX];
+
+  // All bytes are not found by default.
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    single_bytes[index] = false;
   }
 
-  xmlFree(value);
+  size_t single_bytes_length = nodes->nodeNr;
+
+  for (size_t index = 0; index < single_bytes_length; index++) {
+    uint8_t byte_value;
+    if (read_byte_value(nodes->nodeTab[index], &byte_value) != 0) {
+      return 1;
+    }
+
+    single_bytes[byte_value] = true;
+  }
+
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+    single_bytes_result[index] = single_bytes[index];
+  }
 
   return 0;
 }
 
-int read_group_single_bytes(const xmlNodePtr group, bool* group_bytes_result)
+int read_group_single_bytes(const xmlDocPtr document, const xmlNodePtr group, bool* single_bytes)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
@@ -37,30 +52,29 @@ int read_group_single_bytes(const xmlNodePtr group, bool* group_bytes_result)
   const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)SINGLE_BYTE_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", SINGLE_BYTE_XPATH);
+
     xmlXPathFreeContext(xpath_context);
+
     return 2;
   }
 
   const xmlNodeSetPtr nodes = xpath_object->nodesetval;
   if (nodes->nodeNr < 0) {
     PRINTF_ERROR("failed to find single bytes, xpath: %s", SINGLE_BYTE_XPATH);
+
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
+
     return 3;
   }
 
-  bool group_bytes[UINT8_MAX];
-  int  result = read_group_single_byte_values(nodes, group_bytes);
+  int result = read_single_bytes(nodes, single_bytes);
 
   xmlXPathFreeObject(xpath_object);
   xmlXPathFreeContext(xpath_context);
 
   if (result != 0) {
     return 4;
-  }
-
-  for (size_t index = 0; index < UINT8_MAX; index++) {
-    group_bytes_result[index] = group_bytes[index];
   }
 
   return 0;

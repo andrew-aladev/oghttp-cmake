@@ -21,7 +21,9 @@ static inline int read_constant_value(const xmlNodePtr node, char** constant_ptr
   char* constant_duplicate = strdup((const char*)constant);
   if (constant_duplicate == NULL) {
     PRINTF_ERROR("failed to duplicate constant value: %s", (const char*)constant);
+
     xmlFree(constant);
+
     return 2;
   }
 
@@ -43,15 +45,19 @@ int read_constant(const xmlDocPtr document, char** constant_ptr)
   const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)CONSTANT_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", CONSTANT_XPATH);
+
     xmlXPathFreeContext(xpath_context);
+
     return 2;
   }
 
   const xmlNodeSetPtr nodes = xpath_object->nodesetval;
   if (nodes->nodeNr != 1) {
     PRINTF_ERROR("failed to find single constant value, xpath: %s", CONSTANT_XPATH);
+
     xmlXPathFreeObject(xpath_object);
     xmlXPathFreeContext(xpath_context);
+
     return 3;
   }
 

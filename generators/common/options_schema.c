@@ -40,15 +40,19 @@ int validate_options_schema(const char* path)
   xmlSchemaPtr schema = xmlSchemaParse(schema_context);
   if (schema == NULL) {
     PRINTF_ERROR("failed to parse options schema, path: %s", SCHEMA_PATH);
+
     xmlSchemaFreeParserCtxt(schema_context);
+
     return 2;
   }
 
   xmlSchemaValidCtxtPtr validation_context = xmlSchemaNewValidCtxt(schema);
   if (validation_context == NULL) {
     PRINTF_ERROR("failed to create validation context for options schema, path: %s", SCHEMA_PATH);
+
     xmlSchemaFree(schema);
     xmlSchemaFreeParserCtxt(schema_context);
+
     return 3;
   }
 

@@ -18,8 +18,10 @@ include_directories (
 add_executable (
   "main"
   "../common/options_schema.c"
+  "options/group/byte.c"
   "options/group/main.c"
   "options/group/mode.c"
+  "options/group/ranges.c"
   "options/group/single_bytes.c"
   "options/length.c"
   "options/main.c"

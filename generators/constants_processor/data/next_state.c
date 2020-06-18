@@ -69,7 +69,9 @@ static inline int init_next_state_by_last_symbols(
       if (!is_constant_state_exist) {
         if (global_state >= max_state) {
           PRINTF_ERROR("global state should be less than max state, global state: %zu, max state: %zu", global_state, max_state);
+
           free(next_state_by_last_symbols);
+
           return 2;
         }
 
@@ -82,7 +84,9 @@ static inline int init_next_state_by_last_symbols(
 
   if (global_state != max_state) {
     PRINTF_ERROR("global state is not equal to max state, global state: %zu, max state: %zu", global_state, max_state);
+
     free(next_state_by_last_symbols);
+
     return 3;
   }
 

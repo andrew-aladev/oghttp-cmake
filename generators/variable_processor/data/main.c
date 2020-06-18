@@ -1,15 +1,14 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "data.h"
-#include "options.h"
+#include "main.h"
+
 #include "print.h"
 
-void print_data()
+int process_data(const bool* allowed_bytes, size_t min_length, size_t max_length)
 {
-  PRINT_LENGTH(OGH_MIN_LENGTH);
-  PRINT_GLUE();
+  for (size_t index = 0; index < UINT8_MAX; index++) {
+  }
 
-  PRINT_LENGTH(OGH_MAX_LENGTH);
-  PRINT_GLUE();
+  return 0;
 }
