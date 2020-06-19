@@ -3,12 +3,12 @@
 
 #include "main.h"
 
-#include "print.h"
+#include "allowed_bytes.h"
+#include "length.h"
 
-int process_data(const bool* allowed_bytes, size_t min_length, size_t max_length)
+void process_data(const bool* allowed_bytes, size_t min_length, size_t max_length)
 {
-  for (size_t index = 0; index < UINT8_MAX; index++) {
-  }
-
-  return 0;
+  print_allowed_bytes(allowed_bytes);
+  print_length(min_length);
+  print_length(max_length);
 }

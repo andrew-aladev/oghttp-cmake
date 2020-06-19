@@ -14,10 +14,10 @@
 
 static inline int read_datas(const xmlDocPtr document, const xmlNodeSetPtr nodes, bool* allowed_bytes_result)
 {
-  bool allowed_bytes[UINT8_MAX];
+  bool allowed_bytes[UINT8_MAX + 1];
 
   // All bytes are not allowed by default.
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     allowed_bytes[index] = false;
   }
 
@@ -36,26 +36,26 @@ static inline int read_datas(const xmlDocPtr document, const xmlNodeSetPtr nodes
       return 2;
     }
 
-    bool range_bytes[UINT8_MAX];
+    bool range_bytes[UINT8_MAX + 1];
     if (read_group_range_bytes(document, group, range_bytes) != 0) {
       return 3;
     }
 
-    bool single_bytes[UINT8_MAX];
+    bool single_bytes[UINT8_MAX + 1];
     if (read_group_single_bytes(document, group, single_bytes) != 0) {
       return 4;
     }
 
     bool allowed_byte_value = group_mode == GROUP_MODE_INCLUDE;
 
-    for (size_t jndex = 0; jndex < UINT8_MAX; jndex++) {
+    for (size_t jndex = 0; jndex <= UINT8_MAX; jndex++) {
       if (range_bytes[jndex] || single_bytes[jndex]) {
         allowed_bytes[jndex] = allowed_byte_value;
       }
     }
   }
 
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     allowed_bytes_result[index] = allowed_bytes[index];
   }
 

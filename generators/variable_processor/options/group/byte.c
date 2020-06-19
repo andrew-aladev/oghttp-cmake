@@ -15,13 +15,15 @@ int read_byte_value(const xmlNodePtr node, uint8_t* byte_value_ptr)
     return 1;
   }
 
-  if (sscanf((const char*)value, "%hhu", byte_value_ptr) == 1) {
+  // Format: "0x" + uint8_t (hex value).
+  if (strlen((const char*)value) == 4 && sscanf((const char*)value, "0x%hhx", byte_value_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
-  if (sscanf((const char*)value, "0x%hhx", byte_value_ptr) == 1) {
+  // Format: uint8_t.
+  if (sscanf((const char*)value, "%c", byte_value_ptr) == 1) {
     xmlFree(value);
 
     return 0;

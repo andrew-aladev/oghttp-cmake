@@ -18,8 +18,8 @@ extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE;
 
 extern const bool OGH_PROCESSOR_@NAME@_ALLOWED_BYTES[];
 
-extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_MIN_LENGTH;
-extern const ogh_processor_state_t OGH_PROCESSOR_@NAME@_MAX_LENGTH;
+extern const size_t OGH_PROCESSOR_@NAME@_MIN_LENGTH;
+extern const size_t OGH_PROCESSOR_@NAME@_MAX_LENGTH;
 
 inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_byte_t byte)
 {

@@ -14,7 +14,7 @@
 
 static inline int read_data(const xmlDocPtr document, bool* allowed_bytes_result, size_t* min_length_ptr, size_t* max_length_ptr)
 {
-  bool allowed_bytes[UINT8_MAX];
+  bool allowed_bytes[UINT8_MAX + 1];
   if (read_groups(document, allowed_bytes) != 0) {
     return 1;
   }
@@ -29,7 +29,7 @@ static inline int read_data(const xmlDocPtr document, bool* allowed_bytes_result
     return 3;
   }
 
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     allowed_bytes_result[index] = allowed_bytes[index];
   }
 

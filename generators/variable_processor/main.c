@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include "data/main.h"
 #include "options_schema.h"
 #include "print.h"
 
@@ -22,12 +23,14 @@ int main(int argc, const char** argv)
     return 2;
   }
 
-  bool   allowed_bytes[UINT8_MAX];
+  bool   allowed_bytes[UINT8_MAX + 1];
   size_t min_length;
   size_t max_length;
   if (read_options(options_path, allowed_bytes, &min_length, &max_length) != 0) {
     return 3;
   }
+
+  process_data(allowed_bytes, min_length, max_length);
 
   return 0;
 }

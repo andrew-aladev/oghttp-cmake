@@ -16,10 +16,9 @@
 
 typedef uint@CMAKE_MIN_STATE_BITS@_t ogh_processor_@NAME_LOWER_CASE@_state_t;
 
-#undef OGH_PROCESSOR_CONSTANT
-
 // Constant id equals to its bytes hex values.
 // For example constant "ab" will have id "9798".
+#undef OGH_PROCESSOR_CONSTANT
 #define OGH_PROCESSOR_CONSTANT(ID) OGH_PROCESSOR_@NAME@_CONSTANT_##ID
 
 // clang-format off

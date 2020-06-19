@@ -60,10 +60,10 @@ static inline int read_range_byte(const xmlDocPtr document, const xmlNodePtr ran
 
 static inline int read_range_bytes(const xmlDocPtr document, const xmlNodeSetPtr nodes, bool* range_bytes_result)
 {
-  bool range_bytes[UINT8_MAX];
+  bool range_bytes[UINT8_MAX + 1];
 
   // All bytes are not found by default.
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     range_bytes[index] = false;
   }
 
@@ -92,7 +92,7 @@ static inline int read_range_bytes(const xmlDocPtr document, const xmlNodeSetPtr
     }
   }
 
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     range_bytes_result[index] = range_bytes[index];
   }
 

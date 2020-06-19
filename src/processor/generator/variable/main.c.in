@@ -10,7 +10,7 @@
 
 const ogh_processor_state_t OGH_PROCESSOR_@NAME@_INITIAL_STATE = 0;
 
-#define ALLOWED_BYTES_LENGTH OGH_MAX_SYMBOL + 1
+#define ALLOWED_BYTES_LENGTH OGH_MAX_BYTE + 1
 
 // clang-format off
 const bool OGH_PROCESSOR_@NAME@_ALLOWED_BYTES[ALLOWED_BYTES_LENGTH] = {
@@ -18,8 +18,8 @@ const bool OGH_PROCESSOR_@NAME@_ALLOWED_BYTES[ALLOWED_BYTES_LENGTH] = {
 @CMAKE_ALLOWED_BYTES@};
 // clang-format on
 
-const ogh_processor_state_t OGH_PROCESSOR_@NAME@_MIN_LENGTH = @CMAKE_MIN_LENGTH@;
-const ogh_processor_state_t OGH_PROCESSOR_@NAME@_MAX_LENGTH = @CMAKE_MAX_LENGTH@;
+const size_t OGH_PROCESSOR_@NAME@_MIN_LENGTH = @CMAKE_MIN_LENGTH@;
+const size_t OGH_PROCESSOR_@NAME@_MAX_LENGTH = @CMAKE_MAX_LENGTH@;
 
 extern inline ogh_processor_state_t ogh_processor_@NAME_LOWER_CASE@_get_next_state(ogh_processor_state_t state, ogh_byte_t byte);
 extern inline bool                  ogh_processor_@NAME_LOWER_CASE@_is_finished(ogh_processor_state_t state);

@@ -1,9 +1,12 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#if !defined(ALPHABET_H)
-#define ALPHABET_H
+#include "length.h"
 
-void print_allowed_bytes();
+#include "print.h"
 
-#endif // ALPHABET_H
+void print_length(size_t length)
+{
+  PRINT_LENGTH(length);
+  PRINT_GLUE();
+}

@@ -37,7 +37,8 @@ For example we want to process hosts:
 
 -----
 
-We can assign "0" state for empty string (initial state), "1" for "e", "2" for "x", etc.
+We can assign "0" state for empty string (initial state),
+"1" for "e", "2" for "x", etc.
 "max_state" will be "max_length".
 
 We need to use "size_t" type to handle variable data length, so type of processor state will be "size_t".

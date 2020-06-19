@@ -25,7 +25,7 @@ Empty => "G" => "GE" => "GET".
 Empty (0) => "G" (1) => "GE" (2) => "GET" (3).
 
 We can keep dependency and last byte only.
-Table can be updated into the following form:
+Tree can be updated into the following form:
 Empty (0) => "G" (1) => "E" (2) => "T" (3).
 Empty (0) => "P" (4) => "O" (5) => "S" (6) => "T" (7).
 Empty (0) => "P" (4) => "U" (8) => "T" (9).

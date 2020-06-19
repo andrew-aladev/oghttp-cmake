@@ -7,6 +7,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-int process_data(const bool* allowed_bytes, size_t min_length, size_t max_length);
+void process_data(const bool* allowed_bytes, size_t min_length, size_t max_length);
 
 #endif // DATA_MAIN_H

@@ -16,13 +16,15 @@ static inline int read_length_value(const xmlNodePtr node, size_t* length_ptr)
     return 1;
   }
 
-  if (sscanf((const char*)value, "%zu", length_ptr) == 1) {
+  // Format: "0x" + size_t (hex value).
+  if (sscanf((const char*)value, "0x%zx", length_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
-  if (sscanf((const char*)value, "0x%zx", length_ptr) == 1) {
+  // Format: size_t.
+  if (sscanf((const char*)value, "%zu", length_ptr) == 1) {
     xmlFree(value);
 
     return 0;

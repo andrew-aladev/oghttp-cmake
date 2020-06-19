@@ -14,10 +14,10 @@
 
 static inline int read_single_bytes(const xmlNodeSetPtr nodes, bool* single_bytes_result)
 {
-  bool single_bytes[UINT8_MAX];
+  bool single_bytes[UINT8_MAX + 1];
 
   // All bytes are not found by default.
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     single_bytes[index] = false;
   }
 
@@ -32,7 +32,7 @@ static inline int read_single_bytes(const xmlNodeSetPtr nodes, bool* single_byte
     single_bytes[byte_value] = true;
   }
 
-  for (size_t index = 0; index < UINT8_MAX; index++) {
+  for (size_t index = 0; index <= UINT8_MAX; index++) {
     single_bytes_result[index] = single_bytes[index];
   }
 
