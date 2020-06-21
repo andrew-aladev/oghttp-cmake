@@ -5,25 +5,25 @@
 
 #include <stdlib.h>
 
-#include "options/main.h"
-#include "options_schema.h"
+#include "declaration/main.h"
+#include "declaration_schema.h"
 #include "print.h"
 
 int main(int argc, const char** argv)
 {
   if (argc != 2) {
-    PRINT_ERROR("required argument: options path");
+    PRINT_ERROR("required argument: declaration path");
     return 1;
   }
 
-  const char* options_path = argv[1];
-  if (validate_options_schema(options_path) != 0) {
+  const char* declaration_path = argv[1];
+  if (validate_declaration_schema(declaration_path) != 0) {
     return 2;
   }
 
   char** constants;
   size_t constants_length;
-  if (read_options(options_path, &constants, &constants_length) != 0) {
+  if (read_declaration(declaration_path, &constants, &constants_length) != 0) {
     return 3;
   }
 

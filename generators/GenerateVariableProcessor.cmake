@@ -1,6 +1,6 @@
 set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-function (generate_variable_processor NAME OPTIONS_PATH)
+function (generate_variable_processor NAME DECLARATION_PATH)
   string (TOLOWER ${NAME} NAME_LOWER_CASE)
   set (NAME_LOWER_CASE ${NAME_LOWER_CASE} PARENT_SCOPE)
 
@@ -43,7 +43,7 @@ function (generate_variable_processor NAME OPTIONS_PATH)
 
     if (COMPILE_RESULT)
       execute_process (
-        COMMAND "${BINARY_DIR}/main" ${OPTIONS_PATH}
+        COMMAND "${BINARY_DIR}/main" ${DECLARATION_PATH}
         RESULT_VARIABLE RUN_RESULT
         OUTPUT_VARIABLE RUN_OUTPUT
         ERROR_VARIABLE RUN_ERRORS

@@ -8,7 +8,7 @@
 #include "constant.h"
 #include "print.h"
 
-int read_options(const char* path, char** constant_ptr)
+int read_declaration(const char* path, char** constant_ptr)
 {
   xmlInitParser();
   LIBXML_TEST_VERSION

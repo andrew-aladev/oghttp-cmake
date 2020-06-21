@@ -17,12 +17,12 @@ include_directories (
 )
 add_executable (
   "main"
-  "../common/options_schema.c"
+  "../common/declaration_schema.c"
   "data/bytes.c"
   "data/length.c"
   "data/main.c"
-  "options/constant.c"
-  "options/main.c"
+  "declaration/constant.c"
+  "declaration/main.c"
   "main.c"
 )
 target_link_libraries (

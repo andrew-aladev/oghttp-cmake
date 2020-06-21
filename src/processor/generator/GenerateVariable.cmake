@@ -5,7 +5,7 @@ function (generate_variable NAME)
   set (TARGET_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
   include (GenerateVariableProcessor)
-  generate_variable_processor (${NAME} "${TARGET_PATH}/options.xml")
+  generate_variable_processor (${NAME} "${TARGET_PATH}/declaration.xml")
 
   if (DEFINED CMAKE_ALLOWED_BYTES)
     file (RELATIVE_PATH RELATIVE_SOURCE_PATH ${TARGET_PATH} ${SOURCE_PATH})

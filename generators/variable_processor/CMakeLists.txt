@@ -17,17 +17,17 @@ include_directories (
 )
 add_executable (
   "main"
-  "../common/options_schema.c"
+  "../common/declaration_schema.c"
   "data/allowed_bytes.c"
   "data/length.c"
   "data/main.c"
-  "options/group/byte.c"
-  "options/group/main.c"
-  "options/group/mode.c"
-  "options/group/ranges.c"
-  "options/group/single_bytes.c"
-  "options/length.c"
-  "options/main.c"
+  "declaration/group/byte.c"
+  "declaration/group/main.c"
+  "declaration/group/mode.c"
+  "declaration/group/ranges.c"
+  "declaration/group/single_bytes.c"
+  "declaration/length.c"
+  "declaration/main.c"
   "main.c"
 )
 target_link_libraries (

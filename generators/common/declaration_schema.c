@@ -1,7 +1,7 @@
 // Cmake tools for old generation HTTP (v0.9, v1.0, v1.1) C library.
 // Copyright (c) 2019 AUTHORS, MIT License.
 
-#include "options_schema.h"
+#include "declaration_schema.h"
 
 #include <libxml/xmlschemas.h>
 
@@ -9,7 +9,7 @@
 #include "macro.h"
 #include "print.h"
 
-#define SCHEMA_PATH PROCESSOR_PATH "/options/main.xsd"
+#define SCHEMA_PATH PROCESSOR_PATH "/declaration/main.xsd"
 
 static inline void print_error(void* UNUSED(context), const char* message, ...)
 {
@@ -26,11 +26,11 @@ static inline void print_structured_error(void* UNUSED(argument), xmlErrorPtr er
   PRINTF_ERROR("error at line %d, column %d: %s", error->line, error->int2, error->message);
 }
 
-int validate_options_schema(const char* path)
+int validate_declaration_schema(const char* path)
 {
   xmlSchemaParserCtxtPtr schema_context = xmlSchemaNewParserCtxt(SCHEMA_PATH);
   if (schema_context == NULL) {
-    PRINTF_ERROR("failed to create parser for options schema, path: %s", SCHEMA_PATH);
+    PRINTF_ERROR("failed to create parser for declaration schema, path: %s", SCHEMA_PATH);
     return 1;
   }
 
@@ -39,7 +39,7 @@ int validate_options_schema(const char* path)
 
   xmlSchemaPtr schema = xmlSchemaParse(schema_context);
   if (schema == NULL) {
-    PRINTF_ERROR("failed to parse options schema, path: %s", SCHEMA_PATH);
+    PRINTF_ERROR("failed to parse declaration schema, path: %s", SCHEMA_PATH);
 
     xmlSchemaFreeParserCtxt(schema_context);
 
@@ -48,7 +48,7 @@ int validate_options_schema(const char* path)
 
   xmlSchemaValidCtxtPtr validation_context = xmlSchemaNewValidCtxt(schema);
   if (validation_context == NULL) {
-    PRINTF_ERROR("failed to create validation context for options schema, path: %s", SCHEMA_PATH);
+    PRINTF_ERROR("failed to create validation context for declaration schema, path: %s", SCHEMA_PATH);
 
     xmlSchemaFree(schema);
     xmlSchemaFreeParserCtxt(schema_context);
@@ -66,7 +66,7 @@ int validate_options_schema(const char* path)
   xmlSchemaFreeParserCtxt(schema_context);
 
   if (result != 0) {
-    PRINTF_ERROR("failed to validate options schema, path: %s", SCHEMA_PATH);
+    PRINTF_ERROR("failed to validate declaration schema, path: %s", SCHEMA_PATH);
     return 4;
   }
 

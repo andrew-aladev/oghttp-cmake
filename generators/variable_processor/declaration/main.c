@@ -39,7 +39,7 @@ static inline int read_data(const xmlDocPtr document, bool* allowed_bytes_result
   return 0;
 }
 
-int read_options(const char* path, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
+int read_declaration(const char* path, bool* allowed_bytes, size_t* min_length_ptr, size_t* max_length_ptr)
 {
   xmlInitParser();
   LIBXML_TEST_VERSION
