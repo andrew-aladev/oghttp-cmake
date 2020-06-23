@@ -1,0 +1,62 @@
+Please read "constants_processor" doc first.
+
+There are many constants connected with HTTP protocol.
+Please visit registry website "https://www.iana.org/protocols".
+
+Copy and paste these constants manually is a bad solution.
+We will create generator that will create constants declaration automatically.
+
+-----
+
+Please look at the following xml files:
+"https://www.iana.org/assignments/http-status-codes/http-status-codes.xml"
+"https://www.iana.org/assignments/http-warn-codes/http-warn-codes.xml"
+
+We want to create constants declaration for status codes.
+
+"http-status-codes.xml" includes main status codes.
+We have to create custom xpath that will select "<value>" nodes without "<description>Unassigned</description>" sibling.
+
+"http-warn-codes.xml" includes additional status codes.
+We can use simple xpath that will select all "<value>" nodes.
+
+Code duplicates should be ignored.
+
+-----
+
+Please look at the following xml file:
+"https://www.iana.org/assignments/message-headers/message-headers.xml"
+
+We want to create constants declaration for message headers.
+
+This file consist of several registries.
+User should be able to provide multiple xpathes for it.
+
+-----
+
+It is possible to make the following conclusion:
+1. Constants can be placed into multiple xml files.
+2. User should be able to declare custom xpath to find target node.
+3. User should be able to provide multiple xpathes for each file.
+4. Constant can be received by reading text content of target node.
+5. Constant duplicates should be ignored.
+
+We can provide the following example for HTTP status codes registry declaration:
+
+<root>
+  <file id="http-status-codes">
+    <xpath>//registry[id="http-status-codes-1"]//record/value[not(../description[text()="Unassigned"])]</xpath>
+  </file>
+  <file id="http-warn-codes">
+    <xpath>//registry[id="warn-codes"]//record/value</xpath>
+  </file>
+</root>
+
+We can provide the following example for HTTP message headers registry declaration:
+
+<root>
+  <file id="message-headers">
+    <xpath>//registry[id="perm-headers"]//record/value</xpath>
+    <xpath>//registry[id="prov-headers"]//record/value</xpath>
+  </file>
+</root>
