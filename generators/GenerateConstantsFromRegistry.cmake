@@ -1,6 +1,6 @@
 set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-function (generate_constants_from_registry NAME)
+function (generate_constants_from_registry NAME REGISTRY_DECLARATION_PATH CONSTANTS_DECLARATION_PATH)
   string (TOLOWER ${NAME} NAME_LOWER_CASE)
   set (NAME_LOWER_CASE ${NAME_LOWER_CASE} PARENT_SCOPE)
 

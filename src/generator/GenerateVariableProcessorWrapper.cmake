@@ -1,7 +1,7 @@
 set (CURRENT_LIST_DIR ${CMAKE_CURRENT_LIST_DIR})
 
-function (generate_variable NAME)
-  set (GENERATOR_PATH "${CURRENT_LIST_DIR}/variable")
+function (generate_variable_processor_wrapper NAME)
+  set (GENERATOR_PATH "${CURRENT_LIST_DIR}/variable_processor")
   set (TARGET_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
   include (GenerateVariableProcessor)

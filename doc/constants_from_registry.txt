@@ -45,10 +45,10 @@ We can provide the following example for HTTP status codes registry declaration:
 
 <root>
   <file id="http-status-codes">
-    <xpath>//registry[id="http-status-codes-1"]//record/value[not(../description[text()="Unassigned"])]</xpath>
+    <xpath>//registry[@id="http-status-codes-1"]//record/value[not(../description[text()="Unassigned"])]</xpath>
   </file>
   <file id="http-warn-codes">
-    <xpath>//registry[id="warn-codes"]//record/value</xpath>
+    <xpath>//registry[@id="warn-codes"]//record/value</xpath>
   </file>
 </root>
 
@@ -56,7 +56,7 @@ We can provide the following example for HTTP message headers registry declarati
 
 <root>
   <file id="message-headers">
-    <xpath>//registry[id="perm-headers"]//record/value</xpath>
-    <xpath>//registry[id="prov-headers"]//record/value</xpath>
+    <xpath>//registry[@id="perm-headers"]//record/value</xpath>
+    <xpath>//registry[@id="prov-headers"]//record/value</xpath>
   </file>
 </root>

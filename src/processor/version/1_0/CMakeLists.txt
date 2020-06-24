@@ -1,4 +1,4 @@
 set (NAME "VERSION_1_0")
 
-include (GenerateConstant)
-generate_constant (${NAME})
+include (GenerateConstantProcessorWrapper)
+generate_constant_processor_wrapper (${NAME})

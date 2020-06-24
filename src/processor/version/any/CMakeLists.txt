@@ -1,4 +1,4 @@
 set (NAME "VERSION_ANY")
 
-include (GenerateVariable)
-generate_variable (${NAME})
+include (GenerateVariableProcessorWrapper)
+generate_variable_processor_wrapper (${NAME})
