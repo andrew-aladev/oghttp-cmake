@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    RFC 1945
+
+    4.2 Message Headers:
+    HTTP-header = field-name ":" [ field-value ] CRLF
+    field-name = token
+
+    2.2 Basic Rules:
+    token = 1*<any CHAR except CTLs or tspecials>
+    CTL = <any US-ASCII control character
+          (octets 0 - 31) and DEL (127)>
+    tspecials = "(" | ")" | "<" | ">" | "@"
+                | "," | ";" | ":" | "\" | <">
+                | "/" | "[" | "]" | "?" | "="
+                | "{" | "}" | SP | HT
+  -->
+
+  <!--
+    RFC 7230
+
+    3.2 Header Fields:
+    header-field = field-name ":" OWS field-value OWS
+    field-name = token
+
+    3.2.6 Field Value Components:
+    token = 1*tchar
+    tchar = "!" / "#" / "$" / "%" / "&" / "'" / "*"
+            / "+" / "-" / "." / "^" / "_" / "`" / "|" / "~"
+            / DIGIT / ALPHA
+            ; any VCHAR, except delimiters
+
+    1.2 Syntax Notation:
+    VCHAR = any visible USASCII character
+  -->
+
+  <!-- Standards look different but represents same 77 bytes for token. -->
+
+  <group mode="include">
+    <range>
+      <from>0</from>
+      <to>9</to>
+    </range>
+    <range>
+      <from>a</from>
+      <to>z</to>
+    </range>
+    <range>
+      <from>A</from>
+      <to>Z</to>
+    </range>
+    <byte>!</byte>
+    <byte>#</byte>
+    <byte>$</byte>
+    <byte>%</byte>
+    <!-- ampersand (&) -->
+    <byte>0x26</byte>
+    <byte>'</byte>
+    <byte>*</byte>
+    <byte>+</byte>
+    <byte>-</byte>
+    <byte>.</byte>
+    <byte>^</byte>
+    <byte>_</byte>
+    <byte>`</byte>
+    <byte>|</byte>
+    <byte>~</byte>
+  </group>
+  <min-length>1</min-length>
+  <max-length>0xFFFF</max-length>
+</root>

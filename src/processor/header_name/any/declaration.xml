@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- Any byte except spacing. -->
+  <!-- Any byte except separator and terminators. -->
 
   <group mode="include">
     <range>
@@ -9,18 +9,12 @@
     </range>
   </group>
   <group mode="exclude">
-    <!-- horizontal tabulation (\t) -->
-    <byte>0x09</byte>
+    <!-- separator -->
+    <byte>:</byte>
     <!-- line feed (\n) -->
     <byte>0x0A</byte>
-    <!-- vertical tabulation (\v) -->
-    <byte>0x0B</byte>
-    <!-- form feed (\f) -->
-    <byte>0x0C</byte>
     <!-- carriage return (\r) -->
     <byte>0x0D</byte>
-    <!-- space -->
-    <byte>0x20</byte>
   </group>
   <min-length>1</min-length>
   <max-length>0xFFFF</max-length>

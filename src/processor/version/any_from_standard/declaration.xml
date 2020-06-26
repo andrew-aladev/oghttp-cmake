@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
+  <!--
+    RFC 1945 - 3.1 HTTP Version:
+    HTTP-Version = "HTTP" "/" 1*DIGIT "." 1*DIGIT
+  -->
+
+  <!--
+    RFC 7230 - 2.6 Protocol Versioning:
+    HTTP-version = HTTP-name "/" DIGIT "." DIGIT
+  -->
+
   <group mode="include">
     <range>
       <from>0</from>

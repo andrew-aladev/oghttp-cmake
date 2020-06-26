@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <file id="http-status-codes">
+    <xpath>//registry[@id="http-status-codes-1"]//record/value[not(../description[text()="Unassigned"])]</xpath>
+  </file>
+  <file id="http-warn-codes">
+    <xpath>//registry[@id="warn-codes"]//record/value</xpath>
+  </file>
+</root>

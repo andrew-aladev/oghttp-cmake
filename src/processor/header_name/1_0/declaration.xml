@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- RFC 1945 - 10 Header Field Definitions. -->
+
+  <constants>
+    <constant>Allow</constant>
+    <constant>Authorization</constant>
+    <constant>Content-Encoding</constant>
+    <constant>Content-Length</constant>
+    <constant>Content-Type</constant>
+    <constant>Date</constant>
+    <constant>Expires</constant>
+    <constant>From</constant>
+    <constant>If-Modified-Since</constant>
+    <constant>Last-Modified</constant>
+    <constant>Location</constant>
+    <constant>Pragma</constant>
+    <constant>Referer</constant>
+    <constant>Server</constant>
+    <constant>User-Agent</constant>
+    <constant>WWW-Authenticate</constant>
+  </constants>
+</root>
