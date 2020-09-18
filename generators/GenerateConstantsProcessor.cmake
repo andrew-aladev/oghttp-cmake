@@ -27,13 +27,13 @@ function (generate_constants_processor NAME DECLARATION_PATH)
     include (GetVerboseFlags)
     cmake_get_verbose_flags ()
 
-    include (CheckC11)
-    cmake_check_c11 ()
+    include (CheckC18)
+    cmake_check_c18 ()
 
     try_compile (
       COMPILE_RESULT ${BINARY_DIR} ${SOURCE_DIR} ${NAME}
       CMAKE_FLAGS
-        "-DCMAKE_C_FLAGS=${CMAKE_VERBOSE_C_FLAGS} ${CMAKE_C11_C_FLAGS} ${CMAKE_WERROR_C_FLAGS}"
+        "-DCMAKE_C_FLAGS=${CMAKE_VERBOSE_C_FLAGS} ${CMAKE_C18_C_FLAGS} ${CMAKE_WERROR_C_FLAGS}"
         "-DCMAKE_VERBOSE_MAKEFILE=${CMAKE_VERBOSE_MAKEFILE}"
         "-DCMAKE_GENERATOR_USE_CURRENT_TOOLCHAIN=${CMAKE_GENERATOR_USE_CURRENT_TOOLCHAIN}"
         "-DCMAKE_LIBXML2_INCLUDE_DIRS=${LIBXML2_INCLUDE_DIRS}"
