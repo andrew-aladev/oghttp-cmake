@@ -8,9 +8,8 @@
 #include "print.h"
 
 // We need to check whether current prefix matches existing constant.
-static inline bool find_state_from_constants(
-  const char** constants, size_t constants_length,
-  size_t* state_ptr, const char* prefix_constant, size_t prefix_length)
+static inline bool find_state_from_constants(const char** constants, size_t constants_length, size_t* state_ptr,
+                                             const char* prefix_constant, size_t prefix_length)
 {
   for (size_t index = 0; index < constants_length; index++) {
     const char* constant = constants[index];
@@ -24,10 +23,11 @@ static inline bool find_state_from_constants(
   return false;
 }
 
-static inline int init_next_state_by_last_symbols(
-  const char** constants, size_t constants_length,
-  const uint8_t* symbol_by_bytes, size_t alphabet_length, size_t initial_state, size_t max_state,
-  size_t** next_state_by_last_symbols_ptr, size_t* next_state_by_last_symbols_length_ptr)
+static inline int init_next_state_by_last_symbols(const char** constants, size_t constants_length,
+                                                  const uint8_t* symbol_by_bytes, size_t alphabet_length,
+                                                  size_t initial_state, size_t max_state,
+                                                  size_t** next_state_by_last_symbols_ptr,
+                                                  size_t*  next_state_by_last_symbols_length_ptr)
 {
   // Each state has alphabet length of possible last symbols.
   size_t next_state_by_last_symbols_length = (max_state + 1) * alphabet_length;
@@ -35,7 +35,8 @@ static inline int init_next_state_by_last_symbols(
 
   size_t* next_state_by_last_symbols = malloc(next_state_by_last_symbols_size);
   if (next_state_by_last_symbols == NULL) {
-    PRINTF_ERROR("failed to allocate memory for next state by last symbols, size: %zu", next_state_by_last_symbols_size);
+    PRINTF_ERROR("failed to allocate memory for next state by last symbols, size: %zu",
+                 next_state_by_last_symbols_size);
     return 1;
   }
 
@@ -62,13 +63,13 @@ static inline int init_next_state_by_last_symbols(
         continue;
       }
 
-      bool is_constant_state_exist = find_state_from_constants(
-        constants, constants_length,
-        &state, prefix_constant, jndex + 1);
+      bool is_constant_state_exist =
+        find_state_from_constants(constants, constants_length, &state, prefix_constant, jndex + 1);
 
       if (!is_constant_state_exist) {
         if (global_state >= max_state) {
-          PRINTF_ERROR("global state should be less than max state, global state: %zu, max state: %zu", global_state, max_state);
+          PRINTF_ERROR("global state should be less than max state, global state: %zu, max state: %zu", global_state,
+                       max_state);
 
           free(next_state_by_last_symbols);
 
@@ -98,19 +99,17 @@ static inline int init_next_state_by_last_symbols(
 
 #define NEXT_STATE_BY_LAST_SYMBOL_TEMPLATE "[%zu] = %zu"
 
-int print_next_state_by_last_symbols(
-  const char** constants, size_t constants_length,
-  const uint8_t* symbol_by_bytes, size_t alphabet_length, size_t max_state)
+int print_next_state_by_last_symbols(const char** constants, size_t constants_length, const uint8_t* symbol_by_bytes,
+                                     size_t alphabet_length, size_t max_state)
 {
   size_t initial_state = constants_length;
 
   size_t* next_state_by_last_symbols;
   size_t  next_state_by_last_symbols_length;
 
-  int result = init_next_state_by_last_symbols(
-    constants, constants_length,
-    symbol_by_bytes, alphabet_length, initial_state, max_state,
-    &next_state_by_last_symbols, &next_state_by_last_symbols_length);
+  int result =
+    init_next_state_by_last_symbols(constants, constants_length, symbol_by_bytes, alphabet_length, initial_state,
+                                    max_state, &next_state_by_last_symbols, &next_state_by_last_symbols_length);
 
   if (result != 0) {
     return 1;

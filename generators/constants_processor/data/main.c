@@ -33,9 +33,7 @@ int process_data(const char** constants, size_t constants_length)
   size_t   alphabet_length;
   uint8_t* symbol_by_bytes;
 
-  int result = init_alphabet(
-    constants, constants_length,
-    &alphabet, &alphabet_length, &symbol_by_bytes);
+  int result = init_alphabet(constants, constants_length, &alphabet, &alphabet_length, &symbol_by_bytes);
 
   if (result != 0) {
     return 4;
@@ -44,9 +42,7 @@ int process_data(const char** constants, size_t constants_length)
   print_alphabet_length(alphabet_length);
   print_symbol_by_bytes(alphabet, alphabet_length, symbol_by_bytes);
 
-  result = print_next_state_by_last_symbols(
-    constants, constants_length,
-    symbol_by_bytes, alphabet_length, max_state);
+  result = print_next_state_by_last_symbols(constants, constants_length, symbol_by_bytes, alphabet_length, max_state);
 
   free(alphabet);
   free(symbol_by_bytes);

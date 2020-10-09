@@ -273,5 +273,6 @@ const bool OGH_PROCESSOR_HEADER_NAME_ANY_ALLOWED_BYTES[ALLOWED_BYTES_LENGTH] = {
 const size_t OGH_PROCESSOR_HEADER_NAME_ANY_MIN_LENGTH = 1;
 const size_t OGH_PROCESSOR_HEADER_NAME_ANY_MAX_LENGTH = 65535;
 
-extern inline ogh_processor_state_t ogh_processor_header_name_any_get_next_state(ogh_processor_state_t state, ogh_byte_t byte);
+extern inline ogh_processor_state_t ogh_processor_header_name_any_get_next_state(ogh_processor_state_t state,
+                                                                                 ogh_byte_t            byte);
 extern inline bool                  ogh_processor_header_name_any_is_finished(ogh_processor_state_t state);

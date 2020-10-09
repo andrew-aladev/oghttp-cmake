@@ -13,7 +13,8 @@ typedef struct {
 } prefix_t;
 
 // We need to check whether prefix is not equal to any constant.
-static inline bool is_prefix(const char** constants, size_t constants_length, const char* prefix_constant, size_t prefix_length)
+static inline bool is_prefix(const char** constants, size_t constants_length, const char* prefix_constant,
+                             size_t prefix_length)
 {
   for (size_t index = 0; index < constants_length; index++) {
     const char* constant = constants[index];
@@ -26,7 +27,8 @@ static inline bool is_prefix(const char** constants, size_t constants_length, co
   return true;
 }
 
-static inline bool has_prefix(const prefix_t* prefixes, size_t prefixes_length, const char* prefix_constant, size_t prefix_length)
+static inline bool has_prefix(const prefix_t* prefixes, size_t prefixes_length, const char* prefix_constant,
+                              size_t prefix_length)
 {
   for (size_t index = 0; index < prefixes_length; index++) {
     const prefix_t* prefix = &prefixes[index];
@@ -39,7 +41,8 @@ static inline bool has_prefix(const prefix_t* prefixes, size_t prefixes_length, 
   return false;
 }
 
-static inline void add_prefix(prefix_t* prefixes, size_t* prefixes_length_ptr, const char* prefix_constant, size_t prefix_length)
+static inline void add_prefix(prefix_t* prefixes, size_t* prefixes_length_ptr, const char* prefix_constant,
+                              size_t prefix_length)
 {
   prefix_t* prefix = &prefixes[*prefixes_length_ptr];
   (*prefixes_length_ptr)++;

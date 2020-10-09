@@ -21,7 +21,8 @@ extern const bool OGH_PROCESSOR_HEADER_NAME_ANY_FROM_STANDARD_ALLOWED_BYTES[];
 extern const size_t OGH_PROCESSOR_HEADER_NAME_ANY_FROM_STANDARD_MIN_LENGTH;
 extern const size_t OGH_PROCESSOR_HEADER_NAME_ANY_FROM_STANDARD_MAX_LENGTH;
 
-inline ogh_processor_state_t ogh_processor_header_name_any_from_standard_get_next_state(ogh_processor_state_t state, ogh_byte_t byte)
+inline ogh_processor_state_t ogh_processor_header_name_any_from_standard_get_next_state(ogh_processor_state_t state,
+                                                                                        ogh_byte_t            byte)
 {
   if (state == OGH_PROCESSOR_HEADER_NAME_ANY_FROM_STANDARD_MAX_LENGTH) {
     OGH_LOG_ERROR("header_name_any_from_standard processor exceeded max length");

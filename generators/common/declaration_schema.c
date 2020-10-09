@@ -11,10 +11,7 @@
 
 #define SCHEMA_PATH PROCESSOR_PATH "/declaration/main.xsd"
 
-static inline void print_error(void* UNUSED(context), const char* message, ...)
-{
-  PRINTF_ERROR("error: %s", message);
-}
+static inline void print_error(void* UNUSED(context), const char* message, ...) { PRINTF_ERROR("error: %s", message); }
 
 static inline void print_warning(void* UNUSED(context), const char* message, ...)
 {

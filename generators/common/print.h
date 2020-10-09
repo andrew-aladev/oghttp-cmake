@@ -7,11 +7,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define PRINT(string) \
-  fputs(string, stdout)
+#define PRINT(string) fputs(string, stdout)
 
-#define PRINTF(...) \
-  fprintf(stdout, __VA_ARGS__);
+#define PRINTF(...) fprintf(stdout, __VA_ARGS__);
 
 #define PRINT_ERROR(string) \
   fputs(string, stderr);    \
@@ -25,8 +23,7 @@
 
 #define TERMINATOR ",\n"
 
-#define INITIALIZE_SPACERS(is_first) \
-  bool is_first_spacer = is_first;
+#define INITIALIZE_SPACERS(is_first) bool is_first_spacer = is_first;
 
 #define PRINT_SPACER()       \
   if (is_first_spacer) {     \
@@ -40,21 +37,18 @@
 
 #define GLUE ";"
 
-#define PRINT_GLUE() \
-  PRINT(GLUE);
+#define PRINT_GLUE() PRINT(GLUE);
 
 // Byte
 
 #define BYTE_TEMPLATE "0x%02x"
 
-#define PRINT_BYTE(byte) \
-  PRINTF(BYTE_TEMPLATE, byte);
+#define PRINT_BYTE(byte) PRINTF(BYTE_TEMPLATE, byte);
 
 // Length
 
 #define LENGTH_TEMPLATE "%zu"
 
-#define PRINT_LENGTH(length) \
-  PRINTF(LENGTH_TEMPLATE, length);
+#define PRINT_LENGTH(length) PRINTF(LENGTH_TEMPLATE, length);
 
 #endif // PRINT_H

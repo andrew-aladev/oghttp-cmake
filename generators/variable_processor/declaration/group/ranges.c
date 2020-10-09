@@ -14,7 +14,8 @@
 #define RANGE_FROM_XPATH ".//from"
 #define RANGE_TO_XPATH ".//to"
 
-static inline int read_range_byte(const xmlDocPtr document, const xmlNodePtr range, const char* xpath, uint8_t* byte_value_ptr)
+static inline int read_range_byte(const xmlDocPtr document, const xmlNodePtr range, const char* xpath,
+                                  uint8_t* byte_value_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
