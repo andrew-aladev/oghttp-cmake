@@ -11,6 +11,7 @@ AlwaysBreakAfterReturnType: None
 AlwaysBreakBeforeMultilineStrings: true
 BreakBeforeTernaryOperators: false
 ColumnLimit: 120
+Cpp11BracedListStyle: true
 IndentWrappedFunctionNames: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 SpaceAfterCStyleCast: true

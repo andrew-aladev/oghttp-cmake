@@ -30,7 +30,7 @@ typedef struct
   };
 } data_t;
 
-const data_t data = { .is_float = true, .number = 1.5 };
+const data_t data = {.is_float = true, .number = 1.5};
 
 noreturn void func()
 {
