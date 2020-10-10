@@ -10,12 +10,12 @@
 #include "byte.h"
 #include "print.h"
 
-#define RANGE_XPATH ".//range"
+#define RANGE_XPATH      ".//range"
 #define RANGE_FROM_XPATH ".//from"
-#define RANGE_TO_XPATH ".//to"
+#define RANGE_TO_XPATH   ".//to"
 
-static inline int read_range_byte(const xmlDocPtr document, const xmlNodePtr range, const char* xpath,
-                                  uint8_t* byte_value_ptr)
+static inline int
+  read_range_byte(const xmlDocPtr document, const xmlNodePtr range, const char* xpath, uint8_t* byte_value_ptr)
 {
   const xmlXPathContextPtr xpath_context = xmlXPathNewContext(document);
   if (xpath_context == NULL) {
@@ -25,7 +25,7 @@ static inline int read_range_byte(const xmlDocPtr document, const xmlNodePtr ran
 
   xpath_context->node = range;
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)xpath, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) xpath, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", xpath);
 
@@ -110,7 +110,7 @@ int read_group_range_bytes(const xmlDocPtr document, const xmlNodePtr group, boo
 
   xpath_context->node = group;
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)RANGE_XPATH, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) RANGE_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", RANGE_XPATH);
 

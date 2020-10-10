@@ -14,7 +14,7 @@ void print_constants_length(size_t constants_length)
 }
 
 #define MACRO_SYMBOL_TEMPLATE "%02X"
-#define STATE_TEMPLATE "OGH_PROCESSOR_CONSTANT(%s) = %zu"
+#define STATE_TEMPLATE        "OGH_PROCESSOR_CONSTANT(%s) = %zu"
 
 int print_constant_states(const char** constants, size_t constants_length)
 {

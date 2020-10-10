@@ -20,7 +20,7 @@ int print_constants(const xmlNodeSetPtr nodes, size_t nodes_length, bool is_firs
 
   for (size_t index = 0; index < nodes_length; index++) {
     const xmlNodePtr node = nodes->nodeTab[index];
-    const char*      text = (const char*)xmlNodeGetContent(node);
+    const char*      text = (const char*) xmlNodeGetContent(node);
 
     PRINT_SPACER();
     PRINT_CONSTANT(text);

@@ -38,14 +38,16 @@ extern const ogh_byte_t OGH_PROCESSOR_VERSION_1_0_AND_1_1_SYMBOL_BY_BYTES[];
 
 extern const ogh_processor_version_1_0_and_1_1_state_t OGH_PROCESSOR_VERSION_1_0_AND_1_1_NEXT_STATE_BY_LAST_SYMBOLS[];
 
-inline ogh_processor_state_t ogh_processor_version_1_0_and_1_1_get_next_state(ogh_processor_state_t state,
-                                                                              ogh_byte_t            byte)
+inline ogh_processor_state_t ogh_processor_version_1_0_and_1_1_get_next_state(
+  ogh_processor_state_t state,
+  ogh_byte_t            byte)
 {
   ogh_byte_t symbol = OGH_PROCESSOR_VERSION_1_0_AND_1_1_SYMBOL_BY_BYTES[byte];
 
   // We need to verify symbol if alphabet is not full.
-  if (OGH_PROCESSOR_VERSION_1_0_AND_1_1_ALPHABET_LENGTH != OGH_PROCESSOR_VERSION_1_0_AND_1_1_ALPHABET_MAX_LENGTH &&
-      symbol == OGH_PROCESSOR_VERSION_1_0_AND_1_1_UNDEFINED_SYMBOL) {
+  if (
+    OGH_PROCESSOR_VERSION_1_0_AND_1_1_ALPHABET_LENGTH != OGH_PROCESSOR_VERSION_1_0_AND_1_1_ALPHABET_MAX_LENGTH &&
+    symbol == OGH_PROCESSOR_VERSION_1_0_AND_1_1_UNDEFINED_SYMBOL) {
     OGH_LOG_ERROR("version_1_0_and_1_1 processor received invalid byte: %u", byte);
     return OGH_PROCESSOR_VERSION_1_0_AND_1_1_INITIAL_STATE;
   }

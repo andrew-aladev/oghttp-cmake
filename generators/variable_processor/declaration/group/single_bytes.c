@@ -49,7 +49,7 @@ int read_group_single_bytes(const xmlDocPtr document, const xmlNodePtr group, bo
 
   xpath_context->node = group;
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)SINGLE_BYTE_XPATH, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) SINGLE_BYTE_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", SINGLE_BYTE_XPATH);
 

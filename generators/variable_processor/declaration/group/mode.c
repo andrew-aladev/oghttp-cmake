@@ -11,20 +11,19 @@
 
 int read_group_mode(const xmlNodePtr group, group_mode_t* group_mode_ptr)
 {
-  xmlChar* value = xmlGetProp(group, (const xmlChar*)GROUP_MODE_PROPERTY);
+  xmlChar* value = xmlGetProp(group, (const xmlChar*) GROUP_MODE_PROPERTY);
   if (value == NULL) {
     PRINT_ERROR("failed to read group mode property");
     return 1;
   }
 
-  int result = strcmp((const char*)value, "include");
+  int result = strcmp((const char*) value, "include");
 
   xmlFree(value);
 
   if (result == 0) {
     *group_mode_ptr = GROUP_MODE_INCLUDE;
-  }
-  else {
+  } else {
     *group_mode_ptr = GROUP_MODE_EXCLUDE;
   }
 

@@ -70,7 +70,7 @@ int read_groups(const xmlDocPtr document, bool* allowed_bytes)
     return 1;
   }
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)GROUP_XPATH, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) GROUP_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", GROUP_XPATH);
 

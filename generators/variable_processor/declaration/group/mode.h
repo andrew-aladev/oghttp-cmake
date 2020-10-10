@@ -7,7 +7,11 @@
 #include <libxml/parser.h>
 #include <stdint.h>
 
-enum { GROUP_MODE_INCLUDE, GROUP_MODE_EXCLUDE };
+enum
+{
+  GROUP_MODE_INCLUDE,
+  GROUP_MODE_EXCLUDE
+};
 typedef uint8_t group_mode_t;
 
 int read_group_mode(const xmlNodePtr group, group_mode_t* group_mode_ptr);

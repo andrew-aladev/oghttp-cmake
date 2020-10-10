@@ -27,7 +27,7 @@ int main(int argc, const char** argv)
     return 3;
   }
 
-  int result = process_data((const char**)constants, constants_length);
+  int result = process_data((const char**) constants, constants_length);
 
   for (size_t index = 0; index < constants_length; index++) {
     free(constants[index]);

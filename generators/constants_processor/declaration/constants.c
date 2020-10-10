@@ -18,9 +18,9 @@ static inline int read_constant_value(const xmlNodePtr node, char** constant_ptr
     return 1;
   }
 
-  char* constant_duplicate = strdup((const char*)constant);
+  char* constant_duplicate = strdup((const char*) constant);
   if (constant_duplicate == NULL) {
-    PRINTF_ERROR("failed to duplicate constant value: %s", (const char*)constant);
+    PRINTF_ERROR("failed to duplicate constant value: %s", (const char*) constant);
 
     xmlFree(constant);
 
@@ -73,7 +73,7 @@ int read_constants(const xmlDocPtr document, char*** constants_ptr, size_t* cons
     return 1;
   }
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)CONSTANT_XPATH, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) CONSTANT_XPATH, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", CONSTANT_XPATH);
 

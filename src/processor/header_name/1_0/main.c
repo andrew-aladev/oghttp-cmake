@@ -207,6 +207,7 @@ const ogh_processor_header_name_1_0_state_t OGH_PROCESSOR_HEADER_NAME_1_0_NEXT_S
 [5193] = 15};
 // clang-format on
 
-extern inline ogh_processor_state_t ogh_processor_header_name_1_0_get_next_state(ogh_processor_state_t state,
-                                                                                 ogh_byte_t            byte);
-extern inline bool                  ogh_processor_header_name_1_0_is_finished(ogh_processor_state_t state);
+extern inline ogh_processor_state_t ogh_processor_header_name_1_0_get_next_state(
+  ogh_processor_state_t state,
+  ogh_byte_t            byte);
+extern inline bool ogh_processor_header_name_1_0_is_finished(ogh_processor_state_t state);

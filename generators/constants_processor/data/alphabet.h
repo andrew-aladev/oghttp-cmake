@@ -7,8 +7,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-int init_alphabet(const char** constants, size_t constants_length, uint8_t** alphabet_ptr, size_t* alphabet_length_ptr,
-                  uint8_t** symbol_by_bytes_ptr);
+int init_alphabet(
+  const char** constants,
+  size_t       constants_length,
+  uint8_t**    alphabet_ptr,
+  size_t*      alphabet_length_ptr,
+  uint8_t**    symbol_by_bytes_ptr);
 
 void print_alphabet_length(size_t alphabet_length);
 void print_symbol_by_bytes(const uint8_t* alphabet, size_t alphabet_length, const uint8_t* symbol_by_bytes);

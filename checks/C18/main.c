@@ -20,21 +20,23 @@
 
 #define log(x) printf(log_format(x), x), putchar('\n');
 
-typedef struct {
+typedef struct
+{
   bool is_float;
-  union {
+  union
+  {
     float number;
-    char *string;
+    char* string;
   };
 } data_t;
 
-const data_t data = {.is_float = true, .number = 1.5};
+const data_t data = { .is_float = true, .number = 1.5 };
 
 noreturn void func()
 {
   log(alignof(double));
   log(u8"fit");
-  log((void *)&data);
+  log((void*) &data);
   log(data.is_float);
   log(data.number);
 
@@ -43,4 +45,7 @@ noreturn void func()
   exit(0);
 }
 
-int main() { func(); }
+int main()
+{
+  func();
+}

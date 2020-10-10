@@ -16,7 +16,7 @@ void print_allowed_bytes(const bool* allowed_bytes)
   for (size_t index = 0; index <= UINT8_MAX; index++) {
     if (allowed_bytes[index]) {
       PRINT_SPACER();
-      PRINTF(ALLOWED_BYTES_TEMPLATE, (uint8_t)index);
+      PRINTF(ALLOWED_BYTES_TEMPLATE, (uint8_t) index);
     }
   }
 

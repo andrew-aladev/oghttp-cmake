@@ -29,7 +29,7 @@ static inline int process_file(const char* file_path, const char* xpath, bool is
     return 2;
   }
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)xpath, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) xpath, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to create xpath: %s", xpath);
     xmlXPathFreeContext(xpath_context);

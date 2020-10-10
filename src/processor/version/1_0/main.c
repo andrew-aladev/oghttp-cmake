@@ -18,6 +18,7 @@ const ogh_byte_t OGH_PROCESSOR_VERSION_1_0_CONSTANT_BYTES[] = {
 0x30};
 // clang-format on
 
-extern inline ogh_processor_state_t ogh_processor_version_1_0_get_next_state(ogh_processor_state_t state,
-                                                                             ogh_byte_t            byte);
-extern inline bool                  ogh_processor_version_1_0_is_finished(ogh_processor_state_t state);
+extern inline ogh_processor_state_t ogh_processor_version_1_0_get_next_state(
+  ogh_processor_state_t state,
+  ogh_byte_t            byte);
+extern inline bool ogh_processor_version_1_0_is_finished(ogh_processor_state_t state);

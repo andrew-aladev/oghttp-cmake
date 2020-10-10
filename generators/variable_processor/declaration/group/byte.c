@@ -16,20 +16,20 @@ int read_byte_value(const xmlNodePtr node, uint8_t* byte_value_ptr)
   }
 
   // Format: "0x" + uint8_t (hex value).
-  if (strlen((const char*)value) == 4 && sscanf((const char*)value, "0x%hhx", byte_value_ptr) == 1) {
+  if (strlen((const char*) value) == 4 && sscanf((const char*) value, "0x%hhx", byte_value_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
   // Format: uint8_t.
-  if (sscanf((const char*)value, "%c", byte_value_ptr) == 1) {
+  if (sscanf((const char*) value, "%c", byte_value_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
-  PRINTF_ERROR("failed to read byte, value: %s", (const char*)value);
+  PRINTF_ERROR("failed to read byte, value: %s", (const char*) value);
 
   xmlFree(value);
 

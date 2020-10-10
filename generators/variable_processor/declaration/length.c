@@ -17,20 +17,20 @@ static inline int read_length_value(const xmlNodePtr node, size_t* length_ptr)
   }
 
   // Format: "0x" + size_t (hex value).
-  if (sscanf((const char*)value, "0x%zx", length_ptr) == 1) {
+  if (sscanf((const char*) value, "0x%zx", length_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
   // Format: size_t.
-  if (sscanf((const char*)value, "%zu", length_ptr) == 1) {
+  if (sscanf((const char*) value, "%zu", length_ptr) == 1) {
     xmlFree(value);
 
     return 0;
   }
 
-  PRINTF_ERROR("failed to read length, value: %s", (const char*)value);
+  PRINTF_ERROR("failed to read length, value: %s", (const char*) value);
 
   xmlFree(value);
 
@@ -45,7 +45,7 @@ int read_length(const xmlDocPtr document, const char* xpath, size_t* length_ptr)
     return 1;
   }
 
-  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*)xpath, xpath_context);
+  const xmlXPathObjectPtr xpath_object = xmlXPathEvalExpression((const xmlChar*) xpath, xpath_context);
   if (xpath_object == NULL) {
     PRINTF_ERROR("failed to evaluate xpath: %s", xpath);
 

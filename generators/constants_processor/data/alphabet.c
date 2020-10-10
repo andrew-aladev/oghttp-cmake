@@ -10,7 +10,7 @@
 #define ALPHABET_MAX_LENGTH UINT8_MAX + 1
 
 #define SYMBOL_BY_BYTES_LENGTH ALPHABET_MAX_LENGTH
-#define UNDEFINED_SYMBOL SYMBOL_BY_BYTES_LENGTH - 1
+#define UNDEFINED_SYMBOL       SYMBOL_BY_BYTES_LENGTH - 1
 
 static inline bool has_symbol_for_byte(const uint8_t* symbol_by_bytes, uint8_t byte)
 {
@@ -26,10 +26,17 @@ static inline void add_symbol(uint8_t* alphabet, uint8_t* symbol_by_bytes, size_
   symbol_by_bytes[byte] = symbol;
 }
 
-static inline bool is_alphabet_full(size_t alphabet_length) { return alphabet_length == ALPHABET_MAX_LENGTH; }
+static inline bool is_alphabet_full(size_t alphabet_length)
+{
+  return alphabet_length == ALPHABET_MAX_LENGTH;
+}
 
-int init_alphabet(const char** constants, size_t constants_length, uint8_t** alphabet_ptr, size_t* alphabet_length_ptr,
-                  uint8_t** symbol_by_bytes_ptr)
+int init_alphabet(
+  const char** constants,
+  size_t       constants_length,
+  uint8_t**    alphabet_ptr,
+  size_t*      alphabet_length_ptr,
+  uint8_t**    symbol_by_bytes_ptr)
 {
   uint8_t* alphabet = malloc(ALPHABET_MAX_LENGTH);
   if (alphabet == NULL) {

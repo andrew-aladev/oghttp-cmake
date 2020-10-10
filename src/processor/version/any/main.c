@@ -270,6 +270,7 @@ const bool OGH_PROCESSOR_VERSION_ANY_ALLOWED_BYTES[ALLOWED_BYTES_LENGTH] = {
 const size_t OGH_PROCESSOR_VERSION_ANY_MIN_LENGTH = 1;
 const size_t OGH_PROCESSOR_VERSION_ANY_MAX_LENGTH = 65535;
 
-extern inline ogh_processor_state_t ogh_processor_version_any_get_next_state(ogh_processor_state_t state,
-                                                                             ogh_byte_t            byte);
-extern inline bool                  ogh_processor_version_any_is_finished(ogh_processor_state_t state);
+extern inline ogh_processor_state_t ogh_processor_version_any_get_next_state(
+  ogh_processor_state_t state,
+  ogh_byte_t            byte);
+extern inline bool ogh_processor_version_any_is_finished(ogh_processor_state_t state);

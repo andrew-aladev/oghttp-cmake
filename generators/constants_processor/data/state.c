@@ -25,17 +25,13 @@ int print_min_state_bits(size_t max_state)
 
   if (max_state <= UINT8_MAX) {
     min_state_bits = "8";
-  }
-  else if (max_state <= UINT16_MAX) {
+  } else if (max_state <= UINT16_MAX) {
     min_state_bits = "16";
-  }
-  else if (max_state <= UINT32_MAX) {
+  } else if (max_state <= UINT32_MAX) {
     min_state_bits = "32";
-  }
-  else if (max_state <= UINT64_MAX) {
+  } else if (max_state <= UINT64_MAX) {
     min_state_bits = "64";
-  }
-  else {
+  } else {
     PRINTF_ERROR("max state is too big, value: %zu", max_state);
     return 1;
   }

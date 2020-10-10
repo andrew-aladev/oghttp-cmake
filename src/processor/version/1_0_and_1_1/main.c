@@ -37,6 +37,7 @@ const ogh_processor_version_1_0_and_1_1_state_t OGH_PROCESSOR_VERSION_1_0_AND_1_
 [14] = 0};
 // clang-format on
 
-extern inline ogh_processor_state_t ogh_processor_version_1_0_and_1_1_get_next_state(ogh_processor_state_t state,
-                                                                                     ogh_byte_t            byte);
-extern inline bool                  ogh_processor_version_1_0_and_1_1_is_finished(ogh_processor_state_t state);
+extern inline ogh_processor_state_t ogh_processor_version_1_0_and_1_1_get_next_state(
+  ogh_processor_state_t state,
+  ogh_byte_t            byte);
+extern inline bool ogh_processor_version_1_0_and_1_1_is_finished(ogh_processor_state_t state);
